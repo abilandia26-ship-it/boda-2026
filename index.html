@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Boda | Save the Date</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;600&family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Modo Día */
+            --bg-day: #f4f1ea;
+            --text-day: #4a4a4a;
+            --accent-day: #c5a880;
+            /* Modo Noche */
+            --bg-night: #1a1a1b;
+            --text-night: #e0e0e0;
+            --accent-night: #d4af37;
+            
+            --transition: 0.8s ease-in-out;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            transition: background-color var(--transition), color var(--transition);
+            overflow-x: hidden;
+        }
+
+        body.day-mode {
+            background-color: var(--bg-day);
+            color: var(--text-day);
+        }
+
+        body.night-mode {
+            background-color: var(--bg-night);
+            color: var(--text-night);
+        }
+
+        /* Botón de cambio Day/Night */
+        .mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: none;
+            border: 1px solid currentColor;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .date {
+            font-size: 1.5rem;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+        }
+
+        /* Contador */
+        .countdown {
+            display: flex;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .countdown-number {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .countdown-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        /* Secciones de Detalles */
+        .details {
+            padding: 100px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .details h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .rsvp-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 40px;
+            text-decoration: none;
+            border: 1px solid currentColor;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        .rsvp-btn:hover {
+            background-color: currentColor;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .countdown { gap: 10px; }
+        }
+    </style>
+</head>
+<body class="day-mode">
+
+    <button class="mode-toggle" onclick="toggleMode()">Modo Noche</button>
+
+    <section class="hero">
+        <p style="letter-spacing: 3px;">SAVE THE DATE</p>
+        <h1 id="couple-names">NOMBRE & NOMBRE</h1>
+        <div class="date">10 . 10 . 2026</div>
+        
+        <div class="countdown">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">Días</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">Hrs</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">Min</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">Seg</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="details">
+        <h2>Nuestra Historia</h2>
+        <p>Aquí puedes escribir un texto personalizado sobre ustedes. Este diseño está pensado para ser elegante y minimalista, resaltando lo más importante: su unión.</p>
+        
+        <div style="margin-top: 60px;">
+            <h3>Ubicación</h3>
+            <p>Nombre del Lugar<br>Ciudad, País</p>
+            <a href="https://maps.google.com" target="_blank" class="rsvp-btn">VER MAPA</a>
+        </div>
+
+        <div style="margin-top: 60px;">
+            <a href="https://forms.gle/tuejemplo" class="rsvp-btn">CONFIRMAR ASISTENCIA</a>
+        </div>
+    </section>
+
+    <script>
+        // Función para cambiar entre Día y Noche
+        function toggleMode() {
+            const body = document.body;
+            const btn = document.querySelector('.mode-toggle');
+            
+            if (body.classList.contains('day-mode')) {
+                body.classList.replace('day-mode', 'night-mode');
+                btn.innerText = 'Modo Día';
+            } else {
+                body.classList.replace('night-mode', 'day-mode');
+                btn.innerText = 'Modo Noche';
+            }
+        }
+
+        // Configuración de la cuenta regresiva
+        const weddingDate = new Date("Oct 10, 2026 18:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = d;
+            document.getElementById("hours").innerHTML = h;
+            document.getElementById("minutes").innerHTML = m;
+            document.getElementById("seconds").innerHTML = s;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.querySelector(".countdown").innerHTML = "¡Llegó el gran día!";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
