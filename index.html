@@ -70,6 +70,79 @@
         section.active-slide {
             opacity: 1;
         }
+        /* ESTILOS SLIDE 5: CEREMONIA Y SEPARADORES */
+        .separator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 400px;
+        }
+        
+        .separator::before, .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--color-primary);
+            opacity: 0.4;
+        }
+        
+        .separator-icon {
+            padding: 0 15px;
+            color: var(--color-primary);
+            font-size: 1.2rem;
+        }
+        
+        .ceremony-block {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .circular-frame {
+            width: 120px;
+            height: 120px;
+            min-width: 120px;
+            border-radius: 50%;
+            border: 1px solid var(--color-primary);
+            overflow: hidden;
+            padding: 5px;
+        }
+        
+        .circular-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .ceremony-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--color-primary);
+        }
+        
+        .ceremony-info p {
+            font-size: 0.85rem;
+            margin: 2px 0;
+            line-height: 1.2;
+        }
+        
+        .button-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-small {
+            padding: 8px 15px !important;
+            font-size: 0.7rem !important;
+        }
 
         /* --- ANIMACIONES SUAVES (fade-in-up) --- */
         @keyframes fade-in-up {
@@ -535,20 +608,38 @@
         <section id="slide5">
             <h2 class="fade-in-element">¿Dónde y cuándo?</h2>
             
-            <div class="fade-in-element delay-1" style="width: 100%; max-width: 500px; margin: 20px auto;">
-                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/hacienda.png?raw=true" 
+            <div class="fade-in-element delay-1" style="width: 100%; max-width: 450px; margin: 10px auto;">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/hacienda2.png?raw=true" 
                      alt="Hacienda El Carbonero" 
-                     style="width: 100%; height: auto; display: block; border: none;">
+                     style="width: 100%; height: auto; display: block;">
             </div>
-
-            <div class="fade-in-element delay-2">
-                <h3>Hacienda El Carbonero</h3>
-                <p>Loja, Ecuador</p>
-                <p>Desde las 16:00 hasta las 00:00</p>
-                <div style="display: flex; gap: 15px; margin-top: 20px; justify-content: center;">
-                    <a href="https://share.google/xuqSAj9Iobg1FiyIE" target="_blank" class="btn">Google Maps</a>
-                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Jefferson+%26+Abigail&dates=20261010T160000/20261010T235959&details=Hacienda+El+Carbonero&location=Loja,Ecuador" target="_blank" class="btn">Calendario</a>
+        
+            <div class="separator fade-in-element delay-2">
+                <span class="separator-icon">❀</span>
+            </div>
+        
+            <div class="ceremony-block fade-in-element delay-2">
+                <div class="circular-frame">
+                    <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/capilla.png?raw=true">
                 </div>
+                <div class="ceremony-info">
+                    <h3>Ceremonia Religiosa</h3>
+                    <p><strong>Lugar:</strong> Capilla Virgen del Carmen</p>
+                    <p><strong>Ubicación:</strong> Sebastián Paredes y Vicente Rojas</p>
+                    <p><strong>Hora:</strong> 15:45</p>
+                </div>
+            </div>
+        
+            <div class="separator fade-in-element delay-3">
+                <span class="separator-icon">❀</span>
+            </div>
+        
+            <div class="button-row fade-in-element delay-3">
+                <a href="https://maps.app.goo.gl/WiMJwd9oEEL7RzN77" class="btn btn-small">Maps: Capilla</a>
+                
+                <a href="https://maps.app.goo.gl/FEw8QX5TpetZrCmY8" target="_blank" class="btn btn-small">Maps: Recepción</a>
+                
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Jefferson+%26+Abigail&dates=20261010T150000/20261010T235959&details=Quinta+El+Carbonero&location=Loja,Ecuador" target="_blank" class="btn btn-small">Calendario</a>
             </div>
         </section>
 
@@ -633,7 +724,7 @@
             </div>
             
             <p class="fade-in-element delay-3" style="font-size: 0.9rem; padding: 0 10px;">
-                Les invitamos a acompañarnos con vestimenta formal, acorde a la ocasión y al estilo de esta celebración. 
+                Les invitamos a acompañarnos con vestimenta formal, en tonos otoño oscuro. 
                 Agradecemos evitar el uso de blanco, color reservado para la novia, así como prendas informales como jeans, 
                 camisetas o vestidos demasiado cortos.
             </p>
