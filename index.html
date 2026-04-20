@@ -292,15 +292,18 @@
             background: transparent;
         }
 
-        /* SLIDE 2: PORTADA PRINCIPAL (Fondo completo, Letras en tercio superior) - SOLICITUD Img 1, 4 y 2 */
+        /* SLIDE 2: PORTADA PRINCIPAL CORREGIDA */
         #slide2 {
-            /* REEMPLAZAR CON TU IMAGEN DE NOVIOS: url('ruta/a/tu/imagen.jpg') */
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("https://github.com/abilandia26-ship-it/boda-2026/blob/main/imagen%20novios.png?raw=true");
-            background-size: cover;
-            background-position: center;
-            color: var(--color-white);
-            justify-content: flex-start; /* Alinear arriba */
-            padding-top: 5vh; /* Pequeño margen superior */
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                              url('https://github.com/abilandia26-ship-it/boda-2026/blob/main/imagen%20novios.png?raw=true');
+            background-size: cover !important;
+            background-position: center !important;
+            color: #ffffff !important; /* Fuerza el texto a blanco */
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important; /* Mueve el texto arriba */
+            padding-top: 15vh !important; /* Ajusta la altura del tercio superior */
+            text-align: center !important;
         }
 
         #slide2 .content {
