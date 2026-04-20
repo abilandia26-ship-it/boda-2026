@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Nuestra Boda | Jefferson & Abigail</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Great+Vibes&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
@@ -37,11 +37,7 @@
         }
 
         body {
-            font-family: var(--font-body);
-            color: var(--color-text);
-            background: var(--color-bg);
-            overflow: hidden;
-            scroll-behavior: smooth;
+            background-color: var(--color-green); /* Usa el verde del sobre como fondo base */
         }
 
         /* --- NAVEGACIÓN TIPO SLIDES (SCROLL SNAP) --- */
@@ -184,8 +180,14 @@
         /* SLIDE 1: EL SOBRE ELEGANTE (A&J, Tap to Open) - SOLICITUD Img 1 */
         /* Fuerza a que la primera slide sea visible siempre al cargar */
         #slide1 {
-            opacity: 1 !important;
-            transition: none !important;
+            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 30%),
+                        linear-gradient(180deg, var(--color-green-light) 0%, var(--color-green) 45%, #727a5e 100%);
+            perspective: 1800px;
+            overflow: hidden;
+            
+            /* ESTO ELIMINA EL BORDE BLANCO SOLO EN ESTA SLIDE */
+            padding: 0 !important; 
+            margin: 0 !important;
         }
 
         /* Textura de papel para el sobre */
