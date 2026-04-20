@@ -805,26 +805,7 @@
                 });
             }, 1200);
         }
-        /* ... (aquí termina tu código de detección de scroll) ... */
-                });
         
-         // --- NUEVO CÓDIGO PARA WHATSAPP ---
-                document.querySelector('form').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const nombre = this.nombre.value;
-                    const asistencia = this.querySelector('input[name="asistencia"]:checked').value;
-                    const alergias = this.alergias.value || "Ninguna";
-                    const telefono = this.telefono.value;
-                    
-                    const mensaje = `¡Hola! Soy ${nombre}. Confirmo que ${asistencia === 'si' ? 'SÍ asistiré' : 'NO podré asistir'} a la boda. Alergias: ${alergias}. Mi tel: ${telefono}`;
-                    
-                    // IMPORTANTE: Cambia el 593999999999 por tu número real de celular
-                    window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
-                });
-            </script>
-        </body>
-        </html>
-
         /* --- CONFIGURACIÓN DE LA CUENTA REGRESIVA --- */
         // Define la fecha de la boda: 10 de octubre de 2026, 16:00
         const weddingDate = new Date("Oct 10, 2026 16:00:00").getTime();
@@ -874,5 +855,25 @@
             });
         });
     </script>
+    /* ... (aquí termina tu código de detección de scroll) ... */
+                });
+        
+         // --- NUEVO CÓDIGO PARA WHATSAPP ---
+                document.querySelector('form').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const nombre = this.nombre.value;
+                    const asistencia = this.querySelector('input[name="asistencia"]:checked').value;
+                    const alergias = this.alergias.value || "Ninguna";
+                    const telefono = this.telefono.value;
+                    
+                    const mensaje = `¡Hola! Soy ${nombre}. Confirmo que ${asistencia === 'si' ? 'SÍ asistiré' : 'NO podré asistir'} a la boda. Alergias: ${alergias}. Mi tel: ${telefono}`;
+                    
+                    // IMPORTANTE: Cambia el 593999999999 por tu número real de celular
+                    window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
+                });
+            </script>
+        </body>
+        </html>
+
 </body>
 </html>
