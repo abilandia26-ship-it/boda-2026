@@ -725,9 +725,7 @@
             </div>
             
             <p class="fade-in-element delay-3" style="font-size: 0.9rem; padding: 0 10px;">
-                Les invitamos a acompañarnos con vestimenta formal, en tonos otoño oscuro. 
-                Agradecemos evitar el uso de blanco, color reservado para la novia, así como prendas informales como jeans, 
-                camisetas o vestidos demasiado cortos.
+                Nos encantará que nos acompañen con vestimenta formal en tonos otoñales oscuros. Les pedimos, por favor, evitar el blanco (reservado para la novia), así como jeans, camisetas o vestidos muy cortos.
             </p>
         </section>
         
@@ -761,10 +759,10 @@
             <p class="fade-in-element delay-1">Tu presencia es el mejor regalo. Si deseas hacer un pequeño obsequio, puedes hacerlo de las siguientes maneras:</p>
             <div class="bank-info fade-in-element delay-2">
                 <h3>Transferencia bancaria</h3>
-                <p><strong>Beneficiario:</strong> Abigail y Jefferson</p>
-                <p><strong>Cédula:</strong> 11111111111</p>
-                <p><strong>Número de cuenta:</strong> xxxxxxxxxxx</p>
-                <p><strong>Banco:</strong> AAAAAAA</p>
+                <p><strong>Beneficiario:</strong> Abigail&Jefferson</p>
+                <p><strong>Cédula:</strong> 1104531601</p>
+                <p><strong>Número de cuenta:</strong> 2203727653</p>
+                <p><strong>Banco:</strong> Banco Pichincha</p>
             </div>
 
             <div class="fade-in-element delay-2" style="width: 250px; height: 150px; margin: 20px auto;">
@@ -807,6 +805,25 @@
                 });
             }, 1200);
         }
+        /* ... (aquí termina tu código de detección de scroll) ... */
+                });
+        
+         // --- NUEVO CÓDIGO PARA WHATSAPP ---
+                document.querySelector('form').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const nombre = this.nombre.value;
+                    const asistencia = this.querySelector('input[name="asistencia"]:checked').value;
+                    const alergias = this.alergias.value || "Ninguna";
+                    const telefono = this.telefono.value;
+                    
+                    const mensaje = `¡Hola! Soy ${nombre}. Confirmo que ${asistencia === 'si' ? 'SÍ asistiré' : 'NO podré asistir'} a la boda. Alergias: ${alergias}. Mi tel: ${telefono}`;
+                    
+                    // IMPORTANTE: Cambia el 593999999999 por tu número real de celular
+                    window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
+                });
+            </script>
+        </body>
+        </html>
 
         /* --- CONFIGURACIÓN DE LA CUENTA REGRESIVA --- */
         // Define la fecha de la boda: 10 de octubre de 2026, 16:00
