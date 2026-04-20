@@ -183,11 +183,9 @@
 
         /* SLIDE 1: EL SOBRE ELEGANTE (A&J, Tap to Open) - SOLICITUD Img 1 */
         #slide1 {
-            background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 30%),
-                        linear-gradient(180deg, var(--color-green-light) 0%, var(--color-green) 45%, #727a5e 100%);
-            perspective: 1800px;
-            overflow: hidden;
-        }
+    opacity: 1 !important; /* Fuerza a que siempre sea visible */
+    transition: none !important; /* Quita el fundido inicial solo para el sobre */
+}
 
         /* Textura de papel para el sobre */
         #slide1::before {
@@ -447,7 +445,7 @@
 
     <main id="main-container">
 
-        <section id="slide1">
+        <section id="slide1" class="active-slide">
             <div class="envelope" id="envelope">
                 <div class="back"></div>
                 <div class="front-left"></div>
