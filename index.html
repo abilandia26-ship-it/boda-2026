@@ -252,15 +252,23 @@
         .monogram {
             position: absolute;
             left: 50%;
-            top: 43%;
+            top: 45%; /* Posición ideal sobre la solapa */
             transform: translate(-50%, -50%);
             z-index: 6;
-            font-family: var(--font-monogram);
-            font-size: clamp(60px, 15vw, 120px); /* Responsivo */
-            color: #d8b15d; /* Dorado */
-            letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            width: 90px;  /* Tamaño del sello */
+            height: 90px;
             pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .monogram img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* Sombra que simula el relieve de la cera/sello */
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3)); 
         }
 
         .hint {
@@ -454,7 +462,9 @@
                 <div class="front-right"></div>
                 <div class="front-bottom"></div>
                 <div class="flap"></div>
-                <div class="monogram">A & J</div>
+                <div class="monogram">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/monogramas2.png?raw=true">
+            </div>
             </div>
             <div class="hint">Toca para abrir</div>
             <div class="tap-area" onclick="openEnvelope()" aria-label="Abrir sobre"></div>
