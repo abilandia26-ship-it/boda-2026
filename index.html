@@ -71,11 +71,12 @@
             opacity: 1;
         }
         /* ESTILOS SLIDE 5: CEREMONIA Y SEPARADORES */
+        /* CAMBIO: Margen reducido a 0 para eliminar espacios */
         .separator {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 20px auto;
+            margin: 0 auto; /* Antes estaba en 20px auto */
             width: 80%;
             max-width: 400px;
         }
@@ -107,9 +108,9 @@
             height: 120px;
             min-width: 120px;
             border-radius: 50%;
-            border: 1px solid var(--color-primary);
+            border: none; /* Quitamos el borde */
             overflow: hidden;
-            padding: 5px;
+            padding: 0; /* Quitamos el espacio extra */
         }
         
         .circular-frame img {
@@ -608,8 +609,8 @@
         <section id="slide5">
             <h2 class="fade-in-element">¿Dónde y cuándo?</h2>
             
-            <div class="fade-in-element delay-1" style="width: 100%; max-width: 450px; margin: 10px auto;">
-                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/hacienda2.png?raw=true" 
+            <div class="fade-in-element delay-1" style="width: 100%; max-width: 450px; margin: 10px auto 0 auto;">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/hacienda3.png?raw=true" 
                      alt="Hacienda El Carbonero" 
                      style="width: 100%; height: auto; display: block;">
             </div>
