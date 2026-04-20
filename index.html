@@ -791,12 +791,8 @@
         /* --- FUNCIONALIDAD DEL SOBRE ANIMADO --- */
         function openEnvelope() {
             const envelope = document.getElementById('envelope');
-            const scene = document.getElementById('slide1');
-            
-            // Activa animación de apertura sutil
             envelope.classList.add('open');
             
-            // Desliza al siguiente slide después de 1.2s de animación
             setTimeout(() => {
                 const mainContainer = document.getElementById('main-container');
                 mainContainer.scrollTo({
@@ -807,39 +803,34 @@
         }
         
         /* --- CONFIGURACIÓN DE LA CUENTA REGRESIVA --- */
-        // Define la fecha de la boda: 10 de octubre de 2026, 16:00
         const weddingDate = new Date("Oct 10, 2026 16:00:00").getTime();
 
         const timer = setInterval(function() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
 
-            // Cálculos de tiempo
             const d = Math.floor(distance / (1000 * 60 * 60 * 24));
             const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Actualiza el HTML
             document.getElementById("days").innerHTML = d;
             document.getElementById("hours").innerHTML = h;
             document.getElementById("minutes").innerHTML = m;
             document.getElementById("seconds").innerHTML = s;
 
-            // Si la cuenta regresiva termina
             if (distance < 0) {
                 clearInterval(timer);
                 document.getElementById("countdown").innerHTML = "¡Llegó el gran día!";
             }
         }, 1000);
 
-        /* --- DETECCIÓN DE SLIDE ACTIVO PARA ANIMACIONES AL SCROLL --- */
+        /* --- DETECCIÓN DE SLIDE ACTIVO --- */
         const mainContainer = document.getElementById('main-container');
         const sections = document.querySelectorAll('section');
 
         mainContainer.addEventListener('scroll', function() {
             let currentSection = "";
-
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 if (mainContainer.scrollTop >= sectionTop - section.clientHeight / 3) {
@@ -854,26 +845,19 @@
                 }
             });
         });
-    </script>
-    /* ... (aquí termina tu código de detección de scroll) ... */
-                });
-        
-         // --- NUEVO CÓDIGO PARA WHATSAPP ---
-                document.querySelector('form').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const nombre = this.nombre.value;
-                    const asistencia = this.querySelector('input[name="asistencia"]:checked').value;
-                    const alergias = this.alergias.value || "Ninguna";
-                    const telefono = this.telefono.value;
-                    
-                    const mensaje = `¡Hola! Soy ${nombre}. Confirmo que ${asistencia === 'si' ? 'SÍ asistiré' : 'NO podré asistir'} a la boda. Alergias: ${alergias}. Mi tel: ${telefono}`;
-                    
-                    // IMPORTANTE: Cambia el 593999999999 por tu número real de celular
-                    window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
-                });
-            </script>
-        </body>
-        </html>
 
+        /* --- ENVÍO A WHATSAPP --- */
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = this.nombre.value;
+            const asistencia = this.querySelector('input[name="asistencia"]:checked').value;
+            const alergias = this.alergias.value || "Ninguna";
+            const telefono = this.telefono.value;
+            
+            const mensaje = `¡Hola! Soy ${nombre}. Confirmo que ${asistencia === 'si' ? 'SÍ asistiré' : 'NO podré asistir'} a la boda. Alergias: ${alergias}. Mi tel: ${telefono}`;
+            
+            window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
+        });
+    </script>
 </body>
 </html>
