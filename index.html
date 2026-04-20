@@ -250,6 +250,23 @@
             font-size: 0.8rem;
             margin: 15px auto;
         }
+        
+        /* AJUSTE PARA QUE EL TECLADO NO TAPE LOS CAMPOS */
+        @media (max-height: 600px) {
+            #slide10 {
+                justify-content: flex-start !important;
+                padding-top: 40px !important;
+            }
+            
+            #slide10 form {
+                margin-top: 10px !important;
+            }
+        }
+        
+        /* Evita que el scroll-snap bloquee el movimiento cuando el teclado está activo */
+        #main-container:has(input:focus) {
+            scroll-snap-type: none;
+        }
 
         /* ========================================= */
         /* --- ESTILOS ESPECÍFICOS POR SLIDE --- */
@@ -857,6 +874,17 @@
             const mensaje = `¡Hola! Soy ${nombre}. Confirmo que ${asistencia === 'si' ? 'SÍ asistiré' : 'NO podré asistir'} a la boda. Alergias: ${alergias}. Mi tel: ${telefono}`;
             
             window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
+        });
+        // --- CORRECCIÓN DE VISIBILIDAD DEL TECLADO ---
+        const formInputs = document.querySelectorAll('input[type="text"], input[type="tel"]');
+        
+        formInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                // Esperamos un momento a que el teclado termine de subir
+                setTimeout(() => {
+                    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            });
         });
     </script>
 </body>
