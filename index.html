@@ -766,7 +766,30 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
-        /* COMPACTACIÓN ESPECÍFICA PARA SLIDE 6 (Línea de tiempo) */
+        /* SLIDE 6: ORDEN DEL DÍA (FONDO CON MARCA DE AGUA AJUSTADA) */
+        #slide6 {
+            position: relative;
+            background-color: var(--color-bg);
+            justify-content: flex-start;
+            padding-top: 5vh;
+            z-index: 1;
+        }
+
+        #slide6::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://github.com/abilandia26-ship-it/boda-2026/blob/main/Loja1.png?raw=true');
+            background-size: 280px; /* Tamaño mucho más pequeño y controlado */
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.08; /* Casi imperceptible, muy elegante */
+            z-index: -1;
+            pointer-events: none;
+        }
         #slide6 h2 { margin-bottom: 0px; }
         #slide6 .timeline { margin-top: 15px; }
         #slide6 .timeline-item { margin-bottom: 12px; }
@@ -1096,6 +1119,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="fade-in-element delay-3" style="
                 position: absolute; 
