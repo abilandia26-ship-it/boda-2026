@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Boda | Abigail & Jefferson</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Great+Vibes&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- OPTIMIZACIÓN DE ESTILOS --- */
+        :root {
+            --color-bg: #fffcf9;
+            --color-text: #4a4a4a;
+            --color-primary: #c5a880;
+            --color-secondary: #e8d8c3;
+            --color-white: #ffffff;
+            --color-green: #7f8868;
+            --font-title: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition-smooth: 1.2s cubic-bezier(.22,.8,.2,1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background: var(--color-bg);
+            overflow: hidden;
+        }
+
+        #main-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        section {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            background-color: var(--color-bg);
+        }
+
+        section.active-slide { opacity: 1; }
+
+        /* --- MÚSICA CONTROL --- */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: none; /* Se muestra solo cuando inicia la música */
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid var(--color-primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* --- SOBRE (SLIDE 1) --- */
+        #slide1 { opacity: 1 !important; padding: 0 !important; }
+        .envelope { position: relative; width: 100%; height: 100%; }
+        .back { position: absolute; inset: 0; background: linear-gradient(180deg, #8e9877 0%, #7d8768 50%, #6f775d 100%); }
+        .front-left { position: absolute; left: 0; top: 0; width: 50%; height: 100%; clip-path: polygon(0 0, 100% 50%, 0 100%); z-index: 2; background: #7a8466; }
+        .front-right { position: absolute; right: 0; top: 0; width: 50%; height: 100%; clip-path: polygon(100% 0, 0 50%, 100% 100%); z-index: 2; background: #7a8466; }
+        .front-bottom { position: absolute; left: 0; bottom: 0; width: 100%; height: 58%; clip-path: polygon(0 100%, 50% 0, 100% 100%); z-index: 3; background: #747d61; }
+        .flap { position: absolute; top: 0; left: 0; width: 100%; height: 56%; clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top center; transition: transform 0.8s ease; z-index: 5; background: #939d7d; }
+        .open .flap { transform: rotateX(-110deg); z-index: 1; }
+        
+        .monogram { position: absolute; left: 50%; top: 45%; transform: translate(-50%, -50%); z-index: 6; width: 90px; }
+        .monogram img { width: 100%; filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3)); }
+        
+        .hint { position: absolute; top: 65%; left: 50%; transform: translateX(-50%); z-index: 7; color: white; letter-spacing: 2px; font-size: 0.8rem; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        /* --- PORTADA (SLIDE 2) --- */
+        #slide2 {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://github.com/abilandia26-ship-it/boda-2026/blob/main/imagen%20novios.png?raw=true') center/cover no-repeat;
+            color: white;
+            justify-content: flex-start;
+            padding-top: 10vh;
+        }
+
+        /* --- REUTILIZABLES --- */
+        h1 { font-family: var(--font-title); font-size: 3.5rem; }
+        h2 { font-family: var(--font-title); font-size: 3rem; color: var(--color-primary); margin-bottom: 10px; }
+        #slide3 { background-color: var(--color-green); color: white; }
+        #slide3 h2 { color: white; }
+        .btn { display: inline-block; padding: 12px 25px; border: 1px solid var(--color-primary); color: var(--color-primary); text-decoration: none; font-weight: 600; font-size: 0.7rem; letter-spacing: 1px; transition: 0.3s; margin-top: 10px; }
+        .btn:hover { background: var(--color-primary); color: white; }
+        
+        /* Cuenta regresiva */
+        #countdown { display: flex; gap: 15px; margin: 20px 0; }
+        .countdown-item { display: flex; flex-direction: column; }
+        .countdown-number { font-family: var(--font-title); font-size: 2.5rem; }
+
+        /* Animaciones */
+        .fade-in-element { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
+        .active-slide .fade-in-element { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.2s; }
+        .delay-2 { transition-delay: 0.4s; }
+
+        /* Ajustes Mobile */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2.2rem; }
+            .ceremony-block { flex-direction: column; text-align: center; }
+        }
+
+        /* Estilos Slide 5 y 6 adicionales */
+        .separator { width: 60%; height: 1px; background: var(--color-primary); opacity: 0.3; margin: 15px auto; }
+        .ceremony-block { display: flex; align-items: center; gap: 15px; max-width: 90%; }
+        .circular-frame { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+        .circular-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .timeline { margin-top: 20px; border-left: 1px solid var(--color-secondary); padding-left: 20px; text-align: left; }
+        .timeline-item { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <audio id="wedding-music" loop>
+        <source src="https://github.com/abilandia26-ship-it/boda-2026/raw/main/Sera%20por%20que%20te%20amo%20-%20Arcano1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control" id="music-btn" onclick="toggleMusic()">🔊</div>
+
+    <main id="main-container">
+        
+        <section id="slide1" class="active-slide">
+            <div class="envelope" id="envelope-element">
+                <div class="back"></div>
+                <div class="front-left"></div>
+                <div class="front-right"></div>
+                <div class="front-bottom"></div>
+                <div class="flap"></div>
+                <div class="monogram">
+                    <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/monogramas2.png?raw=true" alt="Sello">
+                </div>
+                <div class="hint">TOCA PARA ABRIR</div>
+            </div>
+            <div style="position:absolute; inset:0; z-index:20; cursor:pointer;" onclick="openEnvelope()"></div>
+        </section>
+
+        <section id="slide2">
+            <div class="fade-in-element">
+                <p style="letter-spacing: 4px;">SAVE THE DATE</p>
+                <h1>Abigail & Jefferson</h1>
+                <p style="font-size: 1.5rem;">10 . 10 . 2026</p>
+            </div>
+        </section>
+
+        <section id="slide3">
+            <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/monogramas.png?raw=true" width="120" class="fade-in-element">
+            <h2 class="fade-in-element delay-1">Quedan</h2>
+            <div id="countdown" class="fade-in-element delay-1">
+                <div class="countdown-item"><span class="countdown-number" id="days">00</span><span>Días</span></div>
+                <div class="countdown-item"><span class="countdown-number" id="hours">00</span><span>Hrs</span></div>
+                <div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span>Min</span></div>
+                <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span>Seg</span></div>
+            </div>
+        </section>
+
+        <section id="slide4">
+            <h2>Los detalles</h2>
+            <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/gatos%203.png?raw=true" style="width:70%; max-width:300px; border-radius:15px;" loading="lazy">
+            <p style="font-size: 0.85rem; margin-top:20px; padding: 0 20px;">Celebremos juntos una velada especial. Agradecemos su comprensión: la recepción será únicamente para adultos.</p>
+        </section>
+
+        <section id="slide5">
+            <h2>¿Dónde y cuándo?</h2>
+            <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/hacienda5.png?raw=true" style="width:90%; max-width:400px;" loading="lazy">
+            <div class="ceremony-block">
+                <div class="circular-frame"><img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/capilla.png?raw=true" loading="lazy"></div>
+                <div style="text-align:left;">
+                    <p><strong>Ceremonia:</strong> 15:45h</p>
+                    <p>Capilla Virgen del Carmen</p>
+                </div>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <a href="https://maps.google.com" class="btn">MAPS</a>
+                <a href="#" class="btn">CALENDARIO</a>
+            </div>
+        </section>
+
+        <section id="slide6">
+            <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/novios.png?raw=true" width="60" loading="lazy">
+            <h2>Orden del día</h2>
+            <div class="timeline">
+                <p>16:00 - Ceremonia</p>
+                <p>18:00 - Recepción</p>
+                <p>19:00 - Cena</p>
+                <p>21:00 - Fiesta</p>
+            </div>
+            <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/Loja1.png?raw=true" width="150" style="margin-top:20px;" loading="lazy">
+        </section>
+
+        <section id="slide7">
+            <h2>Dress Code</h2>
+            <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/dressCode.png?raw=true" style="width:80%; max-width:400px;" loading="lazy">
+            <p style="padding:0 20px; font-size:0.9rem;">Vestimenta formal: Tonos otoñales oscuros. Por favor, evitar blanco y jeans.</p>
+        </section>
+
+        <section id="slide9">
+            <h2>Regalo</h2>
+            <p style="padding:0 30px;">Tu presencia es nuestro mayor regalo, pero si deseas tener un detalle:</p>
+            <div style="background:white; padding:20px; border:1px solid #eee; margin:20px 0; text-align:left;">
+                <p><strong>Banco Pichincha</strong></p>
+                <p>Cta: 2203727653</p>
+                <p>A nombre de: Abigail & Jefferson</p>
+            </div>
+            <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/flores.png?raw=true" width="150" loading="lazy">
+        </section>
+
+        <section id="slide10">
+            <h2>¿Asistirás?</h2>
+            <form id="rsvp-form" style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:300px;">
+                <input type="text" name="nombre" placeholder="Tu nombre" required style="padding:10px;">
+                <select name="asistencia" style="padding:10px;">
+                    <option value="si">Sí, asistiré</option>
+                    <option value="no">No podré ir</option>
+                </select>
+                <button type="submit" class="btn" style="background:var(--color-primary); color:white;">CONFIRMAR</button>
+            </form>
+        </section>
+
+    </main>
+
+    <script>
+        // 1. FUNCION APERTURA (Activa audio y scroll)
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope-element');
+            const music = document.getElementById('wedding-music');
+            const musicBtn = document.getElementById('music-btn');
+            
+            envelope.classList.add('open');
+            
+            // Intentar reproducir música (interacción de usuario detectada)
+            music.play().then(() => {
+                musicBtn.style.display = "flex";
+            }).catch(e => console.log("Audio bloqueado aún"));
+
+            // Scroll a la siguiente slide tras animación
+            setTimeout(() => {
+                document.getElementById('main-container').scrollTo({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            }, 1000);
+        }
+
+        // 2. CONTROL DE MÚSICA
+        function toggleMusic() {
+            const music = document.getElementById('wedding-music');
+            const btn = document.getElementById('music-btn');
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = "🔊";
+            } else {
+                music.pause();
+                btn.innerHTML = "🔇";
+            }
+        }
+
+        // 3. CUENTA REGRESIVA
+        const weddingDate = new Date("Oct 10, 2026 16:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const d = weddingDate - now;
+            document.getElementById("days").innerText = Math.floor(d / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerText = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("seconds").innerText = Math.floor((d % (1000 * 60)) / 1000);
+        }, 1000);
+
+        // 4. DETECTOR DE SECCIÓN ACTIVA (Optimizado)
+        const container = document.getElementById('main-container');
+        const sections = document.querySelectorAll('section');
+        
+        container.addEventListener('scroll', () => {
+            let current = "";
+            sections.forEach(section => {
+                if (container.scrollTop >= section.offsetTop - 100) {
+                    current = section.id;
+                }
+            });
+            sections.forEach(s => {
+                s.classList.remove('active-slide');
+                if(s.id === current) s.classList.add('active-slide');
+            });
+        });
+
+        // 5. ENVÍO WHATSAPP
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = this.nombre.value;
+            const asistencia = this.asistencia.value;
+            const msg = encodeURIComponent(`¡Hola! Soy ${nombre}. Confirmo que ${asistencia === 'si' ? 'SÍ' : 'NO'} asistiré a la boda.`);
+            window.open(`https://wa.me/593990044362?text=${msg}`, '_blank');
+        });
+    </script>
+</body>
+</html>
