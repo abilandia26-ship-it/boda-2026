@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Boda | Abigail & Jefferson</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Great+Vibes&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
+    <style>
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid var(--color-primary);
+        }
+        /* --- ESTILOS GENERALES Y PALETA DE COLORES --- */
+        :root {
+            /* Paleta Suave y Romántica */
+            --color-bg: #fffcf9; /* Crema muy suave */
+            --color-text: #4a4a4a; /* Gris oscuro suave */
+            --color-primary: #c5a880; /* Oro suave */
+            --color-secondary: #e8d8c3; /* Rosa empolvado claro */
+            --color-white: #ffffff;
+            --color-dark-overlay: rgba(0, 0, 0, 0.4);
+            
+            /* Color Verde del sobre para secciones (solicitud Img 1 y 4) */
+            --color-green: #7f8868; /* Verde oliva del sobre */
+            --color-green-light: #90997a;
+
+            /* Tipografía */
+            --font-title: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --font-monogram: 'Great Vibes', cursive;
+            
+            /* Transiciones y Espaciado */
+            --transition-smooth: 1.2s cubic-bezier(.22,.8,.2,1);
+            --transition-bounce: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background: var(--color-bg);
+            overflow: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- NAVEGACIÓN TIPO SLIDES (SCROLL SNAP) --- */
+        #main-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
+        section {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-color: var(--color-bg);
+        }
+
+        section.active-slide {
+            opacity: 1;
+        }
+        /* ESTILOS SLIDE 5: CEREMONIA Y SEPARADORES */
+        /* CAMBIO: Margen reducido a 0 para eliminar espacios */
+        .separator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0px auto; /* Antes estaba en 20px auto */
+            width: 80%;
+            max-width: 400px;
+        }
+        
+        .separator::before, .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--color-primary);
+            opacity: 0.4;
+        }
+        
+        .separator-icon {
+            padding: 0 15px;
+            color: var(--color-primary);
+            font-size: 1.2rem;
+        }
+        
+        .ceremony-block {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .circular-frame {
+            width: 120px;
+            height: 120px;
+            min-width: 120px;
+            border-radius: 50%;
+            border: none; /* Quitamos el borde */
+            overflow: hidden;
+            padding: 0; /* Quitamos el espacio extra */
+        }
+        
+        .circular-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .ceremony-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0px;
+            color: var(--color-primary);
+        }
+        
+        .ceremony-info p {
+            font-size: 0.85rem;
+            margin: 2px 0;
+            line-height: 1.2;
+        }
+        
+        .button-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 0px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-small {
+            padding: 8px 15px !important;
+            font-size: 0.7rem !important;
+        }
+
+        /* --- ANIMACIONES SUAVES (fade-in-up) --- */
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-element {
+            opacity: 0;
+        }
+
+        section.active-slide .fade-in-element {
+            animation: fade-in-up 0.8s ease forwards;
+        }
+
+        /* Retrasos de animación secuenciales */
+        section.active-slide .delay-1 { animation-delay: 0.2s; }
+        section.active-slide .delay-2 { animation-delay: 0.4s; }
+        section.active-slide .delay-3 { animation-delay: 0.6s; }
+
+        /* --- ESTILOS DE TEXTO --- */
+        h1, h2, h3 {
+            font-family: var(--font-title);
+            font-weight: 300;
+        }
+
+        h1 { font-size: 3.5rem; margin-bottom: 10px; }
+        h2 { font-size: 3.5rem; margin-bottom: 5px; color: var(--color-primary); }
+        h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        p { font-size: 1rem; line-height: 1.6; max-width: 600px; margin: 0 auto; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2.8rem; }
+            h3 { font-size: 1.5rem; }
+            p { font-size: 0.9rem; }
+        }
+
+        /* --- BOTONES Y ENLACES --- */
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            text-decoration: none;
+            border: 1px solid var(--color-primary);
+            color: var(--color-primary);
+            font-family: var(--font-body);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            transition: 0.3s ease;
+            cursor: pointer;
+            background: none;
+        }
+
+        .btn:hover {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        /* --- MARCOS DE IMÁGENES --- */
+        .img-container {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background-color: var(--color-secondary);
+            margin: 20px auto;
+            border: 1px solid var(--color-primary); /* Marco color oro */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .kitten-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--color-secondary);
+        }
+
+        /* --- PLACEHOLDERS DE IMÁGENES ADICIONALES --- */
+        .placeholder-img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #eee;
+            border: 1px dashed #ccc;
+            color: #888;
+            font-size: 0.8rem;
+            margin: 15px auto;
+        }
+        
+        /* AJUSTE PARA QUE EL TECLADO NO TAPE LOS CAMPOS */
+        @media (max-height: 600px) {
+            #slide10 {
+                justify-content: flex-start !important;
+                padding-top: 40px !important;
+            }
+            
+            #slide10 form {
+                margin-top: 10px !important;
+            }
+        }
+        
+        /* Evita que el scroll-snap bloquee el movimiento cuando el teclado está activo */
+                #main-container:has(input:focus) {
+                    scroll-snap-type: none;
+                }
+               
+
+        /* ========================================= */
+        /* --- ESTILOS ESPECÍFICOS POR SLIDE --- */
+        /* ========================================= */
+
+        /* SLIDE 1: EL SOBRE ELEGANTE (A&J, Tap to Open) - SOLICITUD Img 1 */
+        /* Fuerza a que la primera slide sea visible siempre al cargar */
+        #slide1 {
+        /* Mantiene tus estilos de degradado y visibilidad */
+            opacity: 1 !important;
+            transition: none !important;
+            
+            /* ELIMINA EL BORDE BLANCO SOLO EN ESTA SECCIÓN */
+            padding: 0 !important; 
+            margin: 0 !important;
+            width: 100% !important;
+            height: 100vh !important;
+        }
+
+        /* Textura de papel para el sobre */
+        #slide1::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0.22;
+            background-image:
+                radial-gradient(rgba(255,255,255,0.18) 0.7px, transparent 0.9px),
+                radial-gradient(rgba(0,0,0,0.12) 0.6px, transparent 0.9px);
+            background-size: 10px 10px, 13px 13px;
+            mix-blend-mode: soft-light;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .back {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, #8e9877 0%, #7d8768 50%, #6f775d 100%);
+        }
+
+        .front-left, .front-right, .front-bottom {
+            position: absolute;
+            background: linear-gradient(180deg, #8b9575 0%, #7a8466 100%);
+        }
+
+        .front-left { left: 0; top: 0; width: 50%; height: 100%; clip-path: polygon(0 0, 100% 50%, 0 100%); z-index: 2; }
+        .front-right { right: 0; top: 0; width: 50%; height: 100%; clip-path: polygon(100% 0, 0 50%, 100% 100%); z-index: 2; }
+        .front-bottom {
+            left: 0; bottom: 0; width: 100%; height: 58%;
+            clip-path: polygon(0 100%, 50% 0, 100% 100%);
+            z-index: 3;
+            background: linear-gradient(180deg, #879172 0%, #747d61 100%);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 -8px 30px rgba(0,0,0,0.08);
+        }
+
+        .flap {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 56%;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transition: transform var(--transition-smooth), filter 1.2s ease;
+            z-index: 5;
+            background: linear-gradient(180deg, #939d7d 0%, #7b8566 100%);
+        }
+
+        /* Apertura sutil al hacer clic */
+        .open .flap {
+            transform: rotateX(-45deg);
+            filter: brightness(1.05);
+        }
+
+        /* Monograma en el sobre y portada - SOLICITUD Img 1 */
+        .monogram {
+            position: absolute;
+            left: 50%;
+            top: 45%; /* Posición ideal sobre la solapa */
+            transform: translate(-50%, -50%);
+            z-index: 6;
+            width: 90px;  /* Tamaño del sello */
+            height: 90px;
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .monogram img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* Sombra que simula el relieve de la cera/sello */
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.3)); 
+        }
+
+        .hint {
+            position: absolute;
+            top: 60%; /* Se sitúa en el segundo tercio, debajo del sello */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 7;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.8rem;
+            transition: opacity 0.5s ease;
+        }
+
+        .tap-area {
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        /* SLIDE 2: PORTADA PRINCIPAL (Fondo completo, Letras en tercio superior) - SOLICITUD Img 1, 4 y 2 */
+        #slide2 {
+            /* REEMPLAZAR CON TU IMAGEN DE NOVIOS: url('ruta/a/tu/imagen.jpg') */
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://github.com/abilandia26-ship-it/boda-2026/blob/main/imagen%20novios.png?raw=true');
+            background-size: cover;
+            background-position: center;
+            color: var(--color-white);
+            justify-content: flex-start; /* Alinear arriba */
+            padding-top: 5vh; /* Pequeño margen superior */
+        }
+
+        #slide2 .content {
+            margin-top: 5vh; /* Tercio superior aproximado */
+        }
+
+        #slide2 h1 { font-size: 3.5rem; } /* Tamaño elegante */
+        #slide2 .date { font-size: 1.2rem; }
+
+        /* SLIDE 3: CUENTA REGRESIVA (Sección Verde) - SOLICITUD Img 1 */
+        #slide3 {
+            background-color: var(--color-green); /* Solo esta sección de color verde */
+            color: var(--color-white);
+        }
+
+        #slide3 h2 { color: var(--color-white); } /* Texto blanco sobre verde */
+
+        #countdown {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .countdown-number {
+            font-size: 3rem;
+            font-weight: 300;
+            font-family: var(--font-title);
+            color: var(--color-white); /* Número blanco */
+        }
+
+        .countdown-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* SLIDE 5: LOCACIÓN (Imagen sobre texto) - SOLICITUD Img 5 */
+        .img-hacienda {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* SLIDE 6: ORDEN DEL DÍA (Imágenes sobre y al final) - SOLICITUD Img 6 */
+        .icon-small {
+            width: 50px;
+            height: 50px;
+            background-color: #eee;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #ccc;
+            font-size: 0.7rem; color: #888;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 450px;
+            margin: 30px auto 0 auto; /* Cambiamos el margen inferior de 30px a 0 */
+            padding: 0 10px;
+        }
+        
+        /* Eliminamos el espacio extra del último ítem de la lista */
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            align-items: flex-start;
+        }
+
+        .timeline-time {
+            font-family: var(--font-title);
+            color: var(--color-primary);
+            font-size: 1.2rem;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .timeline-content {
+            border-left: 1px solid var(--color-secondary);
+            padding-left: 20px;
+        }
+
+        /* SLIDE 8: ALOJAMIENTO (Imagen sobre título) - SOLICITUD Img 7 */
+        .hotels-grid {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hotel-card {
+            background-color: var(--color-white);
+            border: 1px solid #eee;
+            padding: 20px;
+            width: 300px;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* SLIDE 9: REGALOS (Imagen debajo de transferencias) - SOLICITUD Img 8 */
+        .bank-info {
+            max-width: 400px;
+            margin: 30px auto;
+            background-color: var(--color-white);
+            padding: 25px;
+            border: 1px solid #eee;
+            text-align: left;
+        }
+
+        .bank-info p { margin-bottom: 8px; font-size: 0.9rem; }
+
+        /* SLIDE 10: CONFIRMACIÓN */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            width: 100%;
+            margin: 30px auto;
+        }
+
+        input, select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            justify-content: center;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+    </style>
+</head>
+<body class="day-mode">
+    
+    <audio id="wedding-music" loop>
+    <source src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/Sera%20por%20que%20te%20amo%20-%20Arcano1.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+        </audio>
+    
+    <main id="main-container">
+        <div class="music-control" onclick="toggleMusic()" id="music-btn">🔊</div>
+
+        <section id="slide1" class="active-slide">
+            <div class="envelope" id="envelope">
+                <div class="back"></div>
+                <div class="front-left"></div>
+                <div class="front-right"></div>
+                <div class="front-bottom"></div>
+                <div class="flap"></div>
+                <div class="monogram">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/monogramas2.png?raw=true">
+            </div>
+            </div>
+            <div class="hint">Toca para abrir</div>
+            <div class="tap-area" onclick="openEnvelope()" aria-label="Abrir sobre"></div>
+        </section>
+
+        <section id="slide2" class="img-full-bg">
+            <div class="content fade-in-element delay-1">
+                <p style="letter-spacing: 3px;">SAVE THE DATE</p>
+                <h1> Abigail & Jefferson</h1>
+                <div class="date" style="font-size: 1.5rem; margin-top: 10px;">10 . 10 . 2026</div>
+            </div>
+        </section>
+
+        <section id="slide3">
+            
+            <div class="fade-in-element" style="width: 150px; margin: 0 auto 20px;">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/monogramas.png?raw=true" 
+                     alt="Monograma" 
+                     style="width: 100%; height: auto; display: block;">
+            </div>
+
+            <h2 class="fade-in-element">Quedan</h2>
+            <div id="countdown" class="fade-in-element delay-1">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Días</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Hrs</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Min</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seg</span>
+                </div>
+            </div>
+            <p class="fade-in-element delay-2">para nuestra boda</p>
+        </section>
+       
+        <section id="slide4">
+            <h2 class="fade-in-element">Los detalles</h2>
+            
+            <div class="fade-in-element delay-1" style="width: 80%; max-width: 400px; margin: 10px auto;">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/gatos%203.png?raw=true" 
+                     alt="Ilustración de Gatitos" 
+                     style="width: 100%; height: auto; display: block; border-radius: 8px;">
+            </div>
+            
+            <p class="fade-in-element delay-2" style="margin-top: 20px; font-size: 0.75rem; letter-spacing: 1px; opacity: 0.8;">
+                CELEBREMOS JUNTOS
+            </p>
+            
+            <p class="fade-in-element delay-3" style="font-size: 0.8rem; line-height: 1.6; margin-top: 15px; text-transform: none; opacity: 0.9;">
+                Con mucho cariño, hemos preparado esta celebración para que sea una velada tranquila y especial. Por ello, la recepción se realizará sin niños. Agradecemos profundamente su comprensión y apoyo en este detalle.
+            </p>
+        </section>
+        
+        <section id="slide5">
+            <h2 class="fade-in-element">¿Dónde y cuándo?</h2>
+            
+            <div class="fade-in-element delay-1" style="width: 100%; max-width: 450px; margin: 10px auto 0 auto;">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/hacienda5.png?raw=true" 
+                     alt="Hacienda El Carbonero" 
+                     style="width: 100%; height: auto; display: block;">
+            </div>
+        
+            <div class="separator fade-in-element delay-2">
+                <span class="separator-icon">❀</span>
+            </div>
+        
+            <div class="ceremony-block fade-in-element delay-2">
+                <div class="circular-frame">
+                    <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/capilla.png?raw=true">
+                </div>
+                <div class="ceremony-info">
+                    <h3>Ceremonia Religiosa</h3>
+                    <p><strong>Lugar:</strong> Capilla Virgen del Carmen</p>
+                    <p><strong>Ubicación:</strong> Sebastián Paredes y Vicente Rojas</p>
+                    <p><strong>Hora:</strong> 15:45</p>
+                </div>
+            </div>
+        
+            <div class="separator fade-in-element delay-3">
+                <span class="separator-icon">❀</span>
+            </div>
+        
+            <div class="button-row fade-in-element delay-3">
+                <a href="https://maps.app.goo.gl/WiMJwd9oEEL7RzN77" class="btn btn-small">Maps: Capilla</a>
+                
+                <a href="https://maps.app.goo.gl/FEw8QX5TpetZrCmY8" target="_blank" class="btn btn-small">Maps: Recepción</a>
+                
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Jefferson+%26+Abigail&dates=20261010T154500/20261010T235959&details=Quinta+El+Carbonero&location=Loja,Ecuador" target="_blank" class="btn btn-small">Calendario</a>
+            </div>
+        </section>
+
+        <section id="slide6">
+          <div class="fade-in-element delay-1" style="width: 80px; height: 80px; margin: 0 auto 15px; display: flex; justify-content: center; align-items: center;">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/novios.png?raw=true" 
+                     alt="Icono Novios" 
+                     style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+            
+            <h2 class="fade-in-element delay-2">Orden del día</h2>
+            <p class="fade-in-element delay-3" style="font-size: 0.75rem; letter-spacing: 1px; opacity: 0.8;">
+                LO QUE HEMOS PLANIFICADO PARA TI
+            </p>
+                        
+            
+            <div class="timeline fade-in-element delay-3">
+    <div class="timeline-item">
+        <div class="timeline-time">16:00</div>
+        <div class="timeline-content">
+            <p>Inicio de la ceremonia religiosa</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-time">17:00</div>
+        <div class="timeline-content">
+            <p>Final de la ceremonia</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-time">18:00</div>
+        <div class="timeline-content">
+            <p>Entrada de los novios al salón</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-time">19:00</div>
+        <div class="timeline-content">
+            <p>Cena</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-time">20:30</div>
+        <div class="timeline-content">
+            <p>Primer baile</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-time">21:00</div>
+        <div class="timeline-content">
+            <p>Apertura de pista</p>
+        </div>
+    </div>
+
+    <div class="timeline-item">
+        <div class="timeline-time">00:30</div>
+        <div class="timeline-content">
+            <p>Despedida</p>
+        </div>
+    </div>
+</div>
+
+            <div class="fade-in-element delay-3" style="max-width: 250px; width: 80%; margin: 20px auto;">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/Loja1.png?raw=true" 
+                     alt="Imagen Final" 
+                     style="width: 100%; height: auto; display: block;">
+            </div>
+        </section>
+          
+
+        <section id="slide7">
+            <h2 class="fade-in-element">Dress Code</h2>
+            <p class="fade-in-element delay-1" style="font-size: 0.75rem; letter-spacing: 1px; opacity: 0.8;">
+                ALGUNAS RECOMENDACIONES
+            </p>
+            
+            <div class="fade-in-element delay-2" style="width: 90%; max-width: 500px; margin: 20px auto;">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/dressCode.png?raw=true" 
+                     alt="Ilustración Dress Code" 
+                     style="width: 100%; height: auto; display: block;">
+            </div>
+            
+            <p class="fade-in-element delay-3" style="font-size: 0.9rem; padding: 0 10px;">
+                Nos encantará que nos acompañen con vestimenta formal en tonos otoñales oscuros. Les pedimos, por favor, evitar el blanco (reservado para la novia), así como jeans, camisetas o vestidos muy cortos.
+            </p>
+        </section>
+        
+
+        <section id="slide8">
+            <div class="img-container fade-in-element delay-1" style="width: 300px; height: 150px; margin-bottom: 30px; border:none; background:none;">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/maletas.png?raw=true" alt="Imagen Alojamiento">
+            </div>
+            
+            <h2 class="fade-in-element delay-2">Alojamiento</h2>
+            <p class="fade-in-element delay-3" style="font-size: 0.75rem; letter-spacing: 1px; opacity: 0.8;">
+            DÓNDE DESCANSAR
+        </p>
+            
+            <div class="hotels-grid fade-in-element delay-3">
+                <div class="hotel-card">
+                    <h3>Hotel Central Loja</h3>
+                    <p style="font-size:0.8rem; margin-bottom: 5px;">A 5 min de la hacienda. Tarifas especiales.</p>
+                    <p>Habitación Doble | 2 Personas | $80/noche</p>
+                    <a href="#" class="btn" style="margin-top:10px; padding: 10px 20px;">Ver hotel</a>
+                </div>
+                <div class="hotel-card">
+                    <h3>Hacienda Suite</h3>
+                    <p style="font-size:0.8rem; margin-bottom: 5px;">Dentro del mismo predio. Lujo.</p>
+                    <p>Habitación Suite | 2 Personas | $120/noche</p>
+                    <a href="#" class="btn" style="margin-top:10px; padding: 10px 20px;">Ver hotel</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="slide9">
+            <h2 class="fade-in-element">Regalo</h2>
+            <p class="fade-in-element delay-1">El mejor regalo es tu compañía, pero si quieres obsequiarnos algo, lo recibiremos con mucho cariño en efectivo/cuenta</p>
+            <div class="bank-info fade-in-element delay-2">
+                <h3>Transferencia bancaria</h3>
+                <p><strong>Beneficiario:</strong> Abigail&Jefferson</p>
+                <p><strong>Cédula:</strong> 1104531601</p>
+                <p><strong>Número de cuenta:</strong> 2203727653</p>
+                <p><strong>Banco:</strong> Banco Pichincha</p>
+            </div>
+
+            <div class="fade-in-element delay-2" style="width: 250px; height: 150px; margin: 20px auto;">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/flores.png?raw=true" style="width:100%; height:100%; object-fit:contain;">
+            </div>
+        </section>
+
+        <section id="slide10">
+            <h2 class="fade-in-element">¿Asistirás?</h2>
+            <p class="fade-in-element delay-1">Por favor confirma tu asistencia</p>
+            <form class="fade-in-element delay-2">
+                <div class="radio-group">
+                    <label><input type="radio" name="asistencia" value="si" required> Sí, estaré allí</label>
+                    <label><input type="radio" name="asistencia" value="no"> Lo siento, no puedo</label>
+                </div>
+                <input type="text" name="nombre" placeholder="Nombre completo" required>
+                <input type="text" name="alergias" placeholder="Alergias o requisitos dietéticos">
+                <input type="tel" name="telefono" placeholder="+44 7700 900000" required>
+                <button type="submit" class="btn">Confirmar</button>
+            </form>
+        </section>
+
+    </main>
+
+    <script>
+        /* --- FUNCIONALIDAD DEL SOBRE ANIMADO --- */
+        function playEnvelopeVideo() {
+            const video = document.getElementById('envelope-video');
+            const hint = document.getElementById('video-hint');
+            const music = document.getElementById('wedding-music'); // Llamamos al audio
+        
+            // Ocultar el texto de ayuda
+            hint.style.opacity = "0";
+            
+            // REPRODUCIR MÚSICA Y VIDEO
+            music.play(); 
+            video.play();
+        
+            // Lógica para pasar a la Slide 2 cuando el video termine
+            video.onended = function() {
+                document.getElementById('main-container').scrollTo({
+                    top: document.getElementById('slide2').offsetTop,
+                    behavior: 'smooth'
+                });
+            };
+        }
+        
+        
+        /* --- CONFIGURACIÓN DE LA CUENTA REGRESIVA --- */
+        const weddingDate = new Date("Oct 10, 2026 16:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = d;
+            document.getElementById("hours").innerHTML = h;
+            document.getElementById("minutes").innerHTML = m;
+            document.getElementById("seconds").innerHTML = s;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "¡Llegó el gran día!";
+            }
+        }, 1000);
+
+        /* --- DETECCIÓN DE SLIDE ACTIVO --- */
+        const mainContainer = document.getElementById('main-container');
+        const sections = document.querySelectorAll('section');
+
+        mainContainer.addEventListener('scroll', function() {
+            let currentSection = "";
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (mainContainer.scrollTop >= sectionTop - section.clientHeight / 3) {
+                    currentSection = section.id;
+                }
+            });
+
+            sections.forEach(section => {
+                section.classList.remove('active-slide');
+                if (section.id === currentSection) {
+                    section.classList.add('active-slide');
+                }
+            });
+        });
+
+        /* --- ENVÍO A WHATSAPP --- */
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = this.nombre.value;
+            const asistencia = this.querySelector('input[name="asistencia"]:checked').value;
+            const alergias = this.alergias.value || "Ninguna";
+            const telefono = this.telefono.value;
+            
+            const mensaje = `¡Hola! Soy ${nombre}. Confirmo que ${asistencia === 'si' ? 'SÍ asistiré' : 'NO podré asistir'} a la boda. Alergias: ${alergias}. Mi tel: ${telefono}`;
+            
+            window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
+        });
+        // --- CORRECCIÓN DE VISIBILIDAD DEL TECLADO ---
+        const formInputs = document.querySelectorAll('input[type="text"], input[type="tel"]');
+        
+        formInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                // Esperamos un momento a que el teclado termine de subir
+                setTimeout(() => {
+                    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            });
+        });
+        /* --- FUNCIONALIDAD DEL SOBRE ANIMADO / VIDEO --- */
+    function playEnvelopeVideo() {
+        const video = document.getElementById('envelope-video');
+        const hint = document.getElementById('video-hint');
+        const music = document.getElementById('wedding-music'); // Llamamos al audio
+    
+        // Ocultar el texto de ayuda al hacer clic
+        if (hint) hint.style.opacity = "0";
+        
+        // REPRODUCIR MÚSICA Y VIDEO SIMULTÁNEAMENTE
+        if (music) music.play();
+        if (video) video.play();
+    
+        // Lógica para pasar a la Slide 2 cuando el video termine
+        video.onended = function() {
+            document.getElementById('main-container').scrollTo({
+                top: document.getElementById('slide2').offsetTop,
+                behavior: 'smooth'
+            });
+        };
+    }
+
+    /* --- FUNCIÓN PARA EL BOTÓN DE SILENCIO (TOGGLE) --- */
+    function toggleMusic() {
+        const music = document.getElementById('wedding-music');
+        const btn = document.getElementById('music-btn');
+        
+        if (music.paused) {
+            music.play();
+            btn.innerHTML = "🔊"; // Cambia el ícono a sonido activado
+        } else {
+            music.pause();
+            btn.innerHTML = "🔇"; // Cambia el ícono a silencio
+        }
+    }
+
+    /* --- AQUÍ PUEDES MANTENER TU CÓDIGO DE CUENTA REGRESIVA Y OTROS --- */
+    </script>
+</body>
+</html>
