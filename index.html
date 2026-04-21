@@ -6,6 +6,22 @@
     <title>Nuestra Boda | Abigail & Jefferson</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Great+Vibes&family=Montserrat:wght@200;400;600&display=swap" rel="stylesheet">
     <style>
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid var(--color-primary);
+        }
         /* --- ESTILOS GENERALES Y PALETA DE COLORES --- */
         :root {
             /* Paleta Suave y Romántica */
@@ -557,7 +573,13 @@
 </head>
 <body class="day-mode">
     
+    <audio id="wedding-music" loop>
+    <source src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/Sera%20por%20que%20te%20amo%20-%20Arcano1.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
+        </audio>
+    
     <main id="main-container">
+        <div class="music-control" onclick="toggleMusic()" id="music-btn">🔊</div>
 
         <section id="slide1" class="active-slide">
             <div class="envelope" id="envelope">
@@ -819,18 +841,27 @@
 
     <script>
         /* --- FUNCIONALIDAD DEL SOBRE ANIMADO --- */
-        function openEnvelope() {
-            const envelope = document.getElementById('envelope');
-            envelope.classList.add('open');
+        function playEnvelopeVideo() {
+            const video = document.getElementById('envelope-video');
+            const hint = document.getElementById('video-hint');
+            const music = document.getElementById('wedding-music'); // Llamamos al audio
+        
+            // Ocultar el texto de ayuda
+            hint.style.opacity = "0";
             
-            setTimeout(() => {
-                const mainContainer = document.getElementById('main-container');
-                mainContainer.scrollTo({
-                    top: mainContainer.querySelector('#slide2').offsetTop,
+            // REPRODUCIR MÚSICA Y VIDEO
+            music.play(); 
+            video.play();
+        
+            // Lógica para pasar a la Slide 2 cuando el video termine
+            video.onended = function() {
+                document.getElementById('main-container').scrollTo({
+                    top: document.getElementById('slide2').offsetTop,
                     behavior: 'smooth'
                 });
-            }, 1200);
+            };
         }
+        
         
         /* --- CONFIGURACIÓN DE LA CUENTA REGRESIVA --- */
         const weddingDate = new Date("Oct 10, 2026 16:00:00").getTime();
@@ -899,6 +930,43 @@
                 }, 300);
             });
         });
+        /* --- FUNCIONALIDAD DEL SOBRE ANIMADO / VIDEO --- */
+    function playEnvelopeVideo() {
+        const video = document.getElementById('envelope-video');
+        const hint = document.getElementById('video-hint');
+        const music = document.getElementById('wedding-music'); // Llamamos al audio
+    
+        // Ocultar el texto de ayuda al hacer clic
+        if (hint) hint.style.opacity = "0";
+        
+        // REPRODUCIR MÚSICA Y VIDEO SIMULTÁNEAMENTE
+        if (music) music.play();
+        if (video) video.play();
+    
+        // Lógica para pasar a la Slide 2 cuando el video termine
+        video.onended = function() {
+            document.getElementById('main-container').scrollTo({
+                top: document.getElementById('slide2').offsetTop,
+                behavior: 'smooth'
+            });
+        };
+    }
+
+    /* --- FUNCIÓN PARA EL BOTÓN DE SILENCIO (TOGGLE) --- */
+    function toggleMusic() {
+        const music = document.getElementById('wedding-music');
+        const btn = document.getElementById('music-btn');
+        
+        if (music.paused) {
+            music.play();
+            btn.innerHTML = "🔊"; // Cambia el ícono a sonido activado
+        } else {
+            music.pause();
+            btn.innerHTML = "🔇"; // Cambia el ícono a silencio
+        }
+    }
+
+    /* --- AQUÍ PUEDES MANTENER TU CÓDIGO DE CUENTA REGRESIVA Y OTROS --- */
     </script>
 </body>
 </html>
