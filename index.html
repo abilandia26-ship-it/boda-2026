@@ -76,19 +76,22 @@
         }
 
         section {
-            height: 100vh;
+            min-height: 100vh;
+            min-height: -webkit-fill-available; /* Mejora en iOS */
             width: 100%;
             scroll-snap-align: start;
+            scroll-snap-stop: always;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             text-align: center;
-            padding: 20px;
+            padding: 60px 20px; /* Más padding para evitar cortes */
             opacity: 0;
             transition: opacity 1s ease;
             background-color: var(--color-bg);
+            box-sizing: border-box;
         }
 
         section.active-slide {
@@ -170,8 +173,9 @@
         }
 
         .btn-small {
-            padding: 8px 15px !important;
-            font-size: 0.7rem !important;
+            padding: 6px 12px !important;
+            font-size: 0.65rem !important;
+            margin-top: 5px !important;
         }
 
         /* --- ANIMACIONES SUAVES (fade-in-up) --- */
@@ -239,56 +243,50 @@
             margin: 0 auto;
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            h2 {
-                font-size: 2.8rem;
-            }
-
-            h3 {
-                font-size: 1.5rem;
-            }
-
-            p {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* --- BOTONES Y ENLACES --- */
+        /* --- BOTONES Y ENLACES (RESTAURADOS Y MEJORADOS) --- */
         .btn {
             display: inline-block;
-            margin-top: 30px;
-            padding: 12px 30px;
+            margin-top: 15px; /* Reducido para ahorrar espacio */
+            padding: 10px 25px;
             text-decoration: none;
-            border: 1px solid var(--color-primary);
+            border: 1.5px solid var(--color-primary);
             color: var(--color-primary);
             font-family: var(--font-body);
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            transition: 0.3s ease;
+            letter-spacing: 1.5px;
+            font-size: 0.75rem;
+            transition: all 0.4s ease;
             cursor: pointer;
-            background: none;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
         }
 
         .btn:hover {
             background-color: var(--color-primary);
             color: var(--color-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(197, 168, 128, 0.3);
         }
 
-        /* --- MARCOS DE IMÁGENES --- */
+        /* --- AJUSTES DE RESPONSIVIDAD GENERAL --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 2.2rem; }
+            h3 { font-size: 1.2rem; }
+            p { font-size: 0.8rem; }
+            section { padding: 40px 15px; } /* Padding más compacto en móvil */
+        }
+
+        /* --- MARCOS DE IMÁGENES RESPONSIVOS --- */
         .img-container {
-            width: 100%;
-            max-width: 400px;
-            height: 300px;
+            width: 90%;
+            max-width: 350px;
+            height: auto;
+            aspect-ratio: 4/3;
             background-color: var(--color-secondary);
-            margin: 20px auto;
+            margin: 15px auto;
             border: 1px solid var(--color-primary);
-            /* Marco color oro */
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -341,7 +339,7 @@
         /* --- INDICADOR DE SCROLL --- */
         .scroll-indicator {
             position: absolute;
-            bottom: 40px; /* Subido para evitar barras de navegación móvil */
+            bottom: 3%; /* Posición relativa al final de la pantalla visible */
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -350,7 +348,7 @@
             opacity: 0;
             transition: opacity 1s ease;
             pointer-events: none;
-            z-index: 1000; /* Asegurar que esté por encima de todo */
+            z-index: 1000;
         }
 
         section.active-slide .scroll-indicator {
@@ -464,7 +462,9 @@
             margin: 0 !important;
             width: 100% !important;
             height: 100vh !important;
+            min-height: 100vh !important;
             background: #000;
+            scroll-snap-align: start;
         }
 
         .video-container {
@@ -633,15 +633,12 @@
 
         /* SLIDE 2: PORTADA PRINCIPAL (Fondo completo, Letras en tercio superior) - SOLICITUD Img 1, 4 y 2 */
         #slide2 {
-            /* REEMPLAZAR CON TU IMAGEN DE NOVIOS: url('ruta/a/tu/imagen.jpg') */
             background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://github.com/abilandia26-ship-it/boda-2026/blob/main/imagen%20novios.png?raw=true');
             background-size: cover;
             background-position: center;
             color: var(--color-white);
-            justify-content: flex-start;
-            /* Alinear arriba */
-            padding-top: 5vh;
-            /* Pequeño margen superior */
+            justify-content: center; /* Centrado para mejor responsividad */
+            padding-top: 20px;
         }
 
         #slide2 .content {
@@ -769,7 +766,75 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
-        /* SLIDE 9: REGALOS (Imagen debajo de transferencias) - SOLICITUD Img 8 */
+        /* COMPACTACIÓN ESPECÍFICA PARA SLIDE 6 (Línea de tiempo) */
+        #slide6 h2 { margin-bottom: 0px; }
+        #slide6 .timeline { margin-top: 15px; }
+        #slide6 .timeline-item { margin-bottom: 12px; }
+        #slide6 .timeline-time { font-size: 1rem; min-width: 50px; }
+        #slide6 .timeline-content p { font-size: 0.8rem; }
+        
+        /* SLIDE 5: VOLVER A VERTICAL COMPACTO */
+        #slide5 .ceremony-block { gap: 10px; margin-top: 10px; }
+        #slide5 .circular-frame { width: 80px; height: 80px; min-width: 80px; }
+        #slide5 h3 { font-size: 1.1rem; }
+        #slide5 .img-hacienda-wrapper { 
+            width: 80%; 
+            max-width: 300px; 
+            margin: 0 auto; 
+            border-radius: 8px; 
+            overflow: hidden; 
+        }
+        #slide5 .img-hacienda-wrapper img { 
+            width: 100%; 
+            max-height: 160px; 
+            object-fit: contain; 
+        }
+
+        /* --- ESTILOS DEL MODAL DE MÚSICA --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--color-bg);
+            padding: 30px;
+            border: 1px solid var(--color-primary);
+            width: 90%;
+            max-width: 450px;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-primary);
+        }
+
+        .modal form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .modal h2 { font-size: 1.8rem; color: var(--color-primary); margin-bottom: 5px; }
+        .modal p { font-size: 0.8rem; margin-bottom: 15px; }
         .bank-info {
             max-width: 400px;
             margin: 30px auto;
@@ -915,10 +980,10 @@
 
         <section id="slide5">
             <h2 class="fade-in-element">¿Dónde y cuándo?</h2>
-
-            <div class="fade-in-element delay-1" style="width: 100%; max-width: 450px; margin: 10px auto 0 auto;">
+            
+            <div class="fade-in-element delay-1 img-hacienda-wrapper">
                 <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/hacienda5.png?raw=true"
-                    loading="lazy" alt="Hacienda El Carbonero" style="width: 100%; height: auto; display: block;">
+                    loading="lazy" alt="Hacienda El Carbonero">
             </div>
 
             <div class="separator fade-in-element delay-2">
@@ -944,10 +1009,7 @@
 
             <div class="button-row fade-in-element delay-3">
                 <a href="https://maps.app.goo.gl/WiMJwd9oEEL7RzN77" class="btn btn-small">Maps: Capilla</a>
-
-                <a href="https://maps.app.goo.gl/FEw8QX5TpetZrCmY8" target="_blank" class="btn btn-small">Maps:
-                    Recepción</a>
-
+                <a href="https://maps.app.goo.gl/FEw8QX5TpetZrCmY8" target="_blank" class="btn btn-small">Maps: Recepción</a>
                 <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Jefferson+%26+Abigail&dates=20261010T154500/20261010T235959&details=Quinta+El+Carbonero&location=Loja,Ecuador"
                     target="_blank" class="btn btn-small">Calendario</a>
             </div>
@@ -1020,9 +1082,9 @@
                 </div>
             </div>
 
-            <div class="fade-in-element delay-3" style="max-width: 250px; width: 80%; margin: 20px auto;">
-                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/Loja1.png?raw=true" loading="lazy"
-                    alt="Imagen Final" style="width: 100%; height: auto; display: block;">
+            <div class="fade-in-element delay-3" style="max-width: 180px; width: 60%; margin: 15px auto 0 auto;">
+                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/Loja1.png?raw=true"
+                    loading="lazy" alt="Imagen Final" style="width: 100%; height: auto; display: block;">
             </div>
             <div class="scroll-indicator">
                 <span></span>
@@ -1094,16 +1156,30 @@
                 <p><strong>Banco:</strong> Banco Pichincha</p>
             </div>
 
-            <div class="fade-in-element delay-2" style="width: 250px; height: 150px; margin: 20px auto;">
+            <div class="fade-in-element delay-2" style="width: 250px; height: 120px; margin: 10px auto;">
                 <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/flores.png?raw=true" loading="lazy"
                     style="width:100%; height:100%; object-fit:contain;">
             </div>
+            
             <div class="scroll-indicator">
                 <span></span>
             </div>
         </section>
 
+        <!-- NUEVO SLIDE 10: MÚSICA -->
         <section id="slide10">
+            <div class="fade-in-element" style="font-size: 3rem; margin-bottom: 10px;">🎵</div>
+            <h2 class="fade-in-element">Música de nuestra boda</h2>
+            <p class="fade-in-element delay-1">¡Queremos que la pista de baile nunca esté vacía! Ayúdanos sugiriendo esa canción que no puede faltar.</p>
+            
+            <button class="btn fade-in-element delay-2" onclick="openMusicModal()">Sugerir canción</button>
+            
+            <div class="scroll-indicator">
+                <span></span>
+            </div>
+        </section>
+
+        <section id="slide11">
             <h2 class="fade-in-element">¿Asistirás?</h2>
             <p class="fade-in-element delay-1">Por favor confirma tu asistencia</p>
             <form class="fade-in-element delay-2">
@@ -1118,6 +1194,21 @@
             </form>
         </section>
 
+        <!-- MODAL DE MÚSICA -->
+        <div id="musicModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeMusicModal()">&times;</span>
+                <h2>Sugerir Canción</h2>
+                <p>¿Qué música no puede faltar en nuestra fiesta?</p>
+                <form id="musicForm">
+                    <input type="text" id="mGuest" placeholder="Tu nombre" required>
+                    <input type="text" id="mSong" placeholder="Nombre de la canción" required>
+                    <input type="text" id="mArtist" placeholder="Artista / Autor" required>
+                    <input type="text" id="mLink" placeholder="Link de YouTube o Spotify (opcional)">
+                    <button type="submit" class="btn">Enviar sugerencia</button>
+                </form>
+            </div>
+        </div>
     </main>
 
     <script>
@@ -1241,6 +1332,39 @@
                 btn.innerHTML = "🔇"; // Cambia el ícono a silencio
             }
         }
+
+        /* --- FUNCIONES DEL MODAL DE MÚSICA --- */
+        function openMusicModal() {
+            document.getElementById('musicModal').style.display = 'flex';
+        }
+
+        function closeMusicModal() {
+            document.getElementById('musicModal').style.display = 'none';
+        }
+
+        // Cerrar al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            const modal = document.getElementById('musicModal');
+            if (event.target == modal) {
+                closeMusicModal();
+            }
+        }
+
+        document.getElementById('musicForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const guest = document.getElementById('mGuest').value;
+            const song = document.getElementById('mSong').value;
+            const artist = document.getElementById('mArtist').value;
+            const link = document.getElementById('mLink').value || "No incluido";
+
+            const mensaje = `¡Hola! Soy ${guest}. Me encantaría sugerir esta canción para la boda: 
+            🎵 Canción: ${song}
+            👤 Artista: ${artist}
+            🔗 Link: ${link}`;
+
+            window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
+            closeMusicModal();
+        });
 
         /* --- AQUÍ PUEDES MANTENER TU CÓDIGO DE CUENTA REGRESIVA Y OTROS --- */
     </script>
