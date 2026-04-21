@@ -264,8 +264,23 @@
         }
         
         /* Evita que el scroll-snap bloquee el movimiento cuando el teclado está activo */
-        #main-container:has(input:focus) {
-            scroll-snap-type: none;
+                #main-container:has(input:focus) {
+                    scroll-snap-type: none;
+                }
+                /* ELIMINAR TRANSICIONES Y ANIMACIONES DESDE SLIDE 3 */
+        section:nth-of-type(n+3) {
+            opacity: 1 !important;
+            transition: none !important;
+        }
+        
+        section:nth-of-type(n+3) .fade-in-element {
+            opacity: 1 !important;
+            animation: none !important;
+        }
+        
+        /* OPCIONAL: Si quieres scroll continuo sin que se "pegue" a cada slide */
+        #main-container {
+            scroll-snap-type: none !important; /* Quita el imán del scroll */
         }
 
         /* ========================================= */
