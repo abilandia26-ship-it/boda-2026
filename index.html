@@ -637,8 +637,8 @@
             background-size: cover;
             background-position: center;
             color: var(--color-white);
-            justify-content: center; /* Centrado para mejor responsividad */
-            padding-top: 20px;
+            justify-content: flex-start; /* Alineado arriba */
+            padding-top: 5vh; /* Casi al tope superior */
         }
 
         #slide2 .content {
@@ -786,8 +786,23 @@
         }
         #slide5 .img-hacienda-wrapper img { 
             width: 100%; 
-            max-height: 160px; 
-            object-fit: contain; 
+            max-height: 240px; /* Aumentado de 160px */
+            object-fit: cover; 
+        }
+        #slide5 h2 { margin-bottom: 5px; }
+        #slide5 .separator { margin: 5px auto; }
+
+        /* SLIDE 8: ALOJAMIENTO - AJUSTE DE POSICIÓN */
+        #slide8 {
+            justify-content: flex-start;
+            padding-top: 5vh; /* Subido más arriba */
+        }
+        #slide8 h2 { margin-bottom: 5px; }
+        #slide8 p { margin-bottom: 10px; }
+        #slide8 img {
+            max-height: 180px;
+            object-fit: contain;
+            margin-bottom: 10px;
         }
 
         /* --- ESTILOS DEL MODAL DE MÚSICA --- */
@@ -1114,10 +1129,10 @@
 
 
         <section id="slide8">
-            <div class="img-container fade-in-element delay-1"
-                style="width: 300px; height: 150px; margin-bottom: 30px; border:none; background:none;">
+            <div class="fade-in-element delay-1"
+                style="width: 240px; margin: 0 auto 10px; border:none; background:none;">
                 <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/maletas.png?raw=true"
-                    loading="lazy" alt="Imagen Alojamiento">
+                    loading="lazy" alt="Imagen Alojamiento" style="width: 100%; height: auto; display: block;">
             </div>
 
             <h2 class="fade-in-element delay-2">Alojamiento</h2>
