@@ -292,15 +292,47 @@
         /* SLIDE 1: EL SOBRE ELEGANTE (A&J, Tap to Open) - SOLICITUD Img 1 */
         /* Fuerza a que la primera slide sea visible siempre al cargar */
         #slide1 {
-        /* Mantiene tus estilos de degradado y visibilidad */
             opacity: 1 !important;
             transition: none !important;
-            
-            /* ELIMINA EL BORDE BLANCO SOLO EN ESTA SECCIÓN */
             padding: 0 !important; 
             margin: 0 !important;
             width: 100% !important;
             height: 100vh !important;
+            background: #000;
+        }
+
+        .video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #envelope-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-hint {
+            position: absolute;
+            z-index: 10;
+            color: white;
+            font-family: var(--font-body);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            background: rgba(0,0,0,0.4);
+            padding: 12px 24px;
+            border-radius: 50px;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         /* Textura de papel para el sobre */
@@ -582,18 +614,14 @@
         <div class="music-control" onclick="toggleMusic()" id="music-btn">🔊</div>
 
         <section id="slide1" class="active-slide">
-            <div class="envelope" id="envelope">
-                <div class="back"></div>
-                <div class="front-left"></div>
-                <div class="front-right"></div>
-                <div class="front-bottom"></div>
-                <div class="flap"></div>
-                <div class="monogram">
-                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/monogramas2.png?raw=true" loading="lazy">
+            <div class="video-container">
+                <video id="envelope-video" playsinline>
+                    <source src="intro-video.mp4" type="video/mp4">
+                    Tu navegador no soporta video.
+                </video>
+                <div class="video-hint" id="video-hint">Toca para abrir la invitación</div>
             </div>
-            </div>
-            <div class="hint">Toca para abrir</div>
-            <div class="tap-area" onclick="openEnvelope()" aria-label="Abrir sobre"></div>
+            <div class="tap-area" onclick="playEnvelopeVideo()" aria-label="Abrir invitación"></div>
         </section>
 
         <section id="slide2" class="img-full-bg">
@@ -842,22 +870,8 @@
     <script>
         /* --- FUNCIONALIDAD DEL SOBRE ANIMADO --- */
         function openEnvelope() {
-            const envelope = document.getElementById('envelope');
-            const music = document.getElementById('wedding-music');
-            
-            // 1. Abrimos visualmente el sobre
-            envelope.classList.add('open');
-            
-            // 2. Iniciamos la música (ahora sí funcionará porque hubo un clic)
-            music.play().catch(e => console.log("El navegador bloqueó el audio inicial"));
-        
-            // 3. Bajamos automáticamente a la siguiente slide después de un momento
-            setTimeout(() => {
-                document.getElementById('main-container').scrollTo({
-                    top: window.innerHeight,
-                    behavior: 'smooth'
-                });
-            }, 1200); // Espera a que la animación del sobre termine un poco
+            // Esta función ha sido reemplazada por playEnvelopeVideo()
+            playEnvelopeVideo();
         }
         
         
