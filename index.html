@@ -1261,15 +1261,16 @@
 
         /* --- REVELACIÓN DE ELEMENTOS (FADE IN) --- */
         const revealOptions = {
+            root: mainContainer, // ← CLAVE: el scroll ocurre aquí, no en el document
             threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px" // Dispara un poco antes de que llegue al centro
+            rootMargin: "0px 0px -30px 0px"
         };
 
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Se activa una sola vez y listo
+                    observer.unobserve(entry.target);
                 }
             });
         }, revealOptions);
