@@ -178,39 +178,23 @@
             margin-top: 5px !important;
         }
 
-        /* --- ANIMACIONES SUAVES (fade-in-up) --- */
-        @keyframes fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        /* --- ANIMACIONES SUAVES (MODO ROBUSTO) --- */
         .fade-in-element {
             opacity: 0;
+            transform: translateY(50px); /* Aumentado de 25px para más recorrido */
+            transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), 
+                        transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
         }
 
-        section.active-slide .fade-in-element {
-            animation: fade-in-up 0.8s ease forwards;
+        .fade-in-element.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Retrasos de animación secuenciales */
-        section.active-slide .delay-1 {
-            animation-delay: 0.2s;
-        }
-
-        section.active-slide .delay-2 {
-            animation-delay: 0.4s;
-        }
-
-        section.active-slide .delay-3 {
-            animation-delay: 0.6s;
-        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
 
         /* --- ESTILOS DE TEXTO --- */
         h1,
@@ -1184,7 +1168,10 @@
 
         <!-- NUEVO SLIDE 10: MÚSICA -->
         <section id="slide10">
-            <div class="fade-in-element" style="font-size: 3rem; margin-bottom: 10px;">🎵</div>
+            <div class="fade-in-element" style="width: 150px; height: 150px; margin: 0 auto 15px;">
+                <img src="musica_boda_icono.png" alt="Icono Música" 
+                     style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
             <h2 class="fade-in-element">Música de nuestra boda</h2>
             <p class="fade-in-element delay-1">¡Queremos que la pista de baile nunca esté vacía! Ayúdanos sugiriendo esa canción que no puede faltar.</p>
             
@@ -1266,17 +1253,35 @@
             let currentSection = "";
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (mainContainer.scrollTop >= sectionTop - section.clientHeight / 3) {
+                if (mainContainer.scrollTop >= sectionTop - 100) {
                     currentSection = section.id;
                 }
             });
 
             sections.forEach(section => {
-                section.classList.remove('active-slide');
                 if (section.id === currentSection) {
                     section.classList.add('active-slide');
                 }
             });
+        });
+
+        /* --- REVELACIÓN DE ELEMENTOS (FADE IN) --- */
+        const revealOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px" // Dispara un poco antes de que llegue al centro
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Se activa una sola vez y listo
+                }
+            });
+        }, revealOptions);
+
+        document.querySelectorAll('.fade-in-element').forEach(el => {
+            revealObserver.observe(el);
         });
 
         /* --- ENVÍO A WHATSAPP --- */
@@ -1381,8 +1386,6 @@
             window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
             closeMusicModal();
         });
-
-        /* --- AQUÍ PUEDES MANTENER TU CÓDIGO DE CUENTA REGRESIVA Y OTROS --- */
     </script>
 </body>
 
