@@ -984,11 +984,6 @@
                     style="width: 100%; height: auto; display: block; border-radius: 8px;">
             </div>
 
-            <p class="fade-in-element delay-2"
-                style="margin-top: 20px; font-size: 0.75rem; letter-spacing: 1px; opacity: 0.8;">
-                CELEBREMOS JUNTOS
-            </p>
-
             <p class="fade-in-element delay-3"
                 style="font-size: 0.8rem; line-height: 1.6; margin-top: 15px; text-transform: none; opacity: 0.9;">
                 Con mucho cariño, hemos preparado esta celebración para que sea una velada tranquila y especial. Por
@@ -1000,41 +995,25 @@
             </div>
         </section>
 
-        <section id="slide5">
-            <h2 class="fade-in-element">¿Dónde y cuándo?</h2>
+        <section id="slide5" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
+                
+                <h2 class="fade-in-element" style="margin-bottom: 20px;">¿Dónde y cuándo?</h2>
+                
+                <div class="fade-in-element delay-1 img-hacienda-wrapper" style="width: 100%; max-width: 400px; margin: 0 auto 0px;">
+                    <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/hacienda7.png?raw=true"
+                         loading="lazy" alt="Hacienda El Carbonero" 
+                         style="width: 100%; height: auto; border-radius: 4px; display: block;">
+                </div>
+                
+                <div class="button-row fade-in-element delay-3" style="margin-top: 10px; gap: 8px; display: flex; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://maps.app.goo.gl/WiMJwd9oEEL7RzN77" class="btn btn-small">Maps: Capilla</a>
+                    <a href="https://maps.app.goo.gl/FEw8QX5TpetZrCmY8" target="_blank" class="btn btn-small">Maps: Recepción</a>
+                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Jefferson+%26+Abigail&dates=20261010T154500/20261010T235959&details=Quinta+El+Carbonero&location=Loja,Ecuador"
+                       target="_blank" class="btn btn-small">Calendario</a>
+                </div>
             
-            <div class="fade-in-element delay-1 img-hacienda-wrapper">
-                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/hacienda5.png?raw=true"
-                    loading="lazy" alt="Hacienda El Carbonero">
-            </div>
-
-            <div class="separator fade-in-element delay-2">
-                <span class="separator-icon">❀</span>
-            </div>
-
-            <div class="ceremony-block fade-in-element delay-2">
-                <div class="circular-frame">
-                    <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/capilla.png?raw=true"
-                        loading="lazy">
-                </div>
-                <div class="ceremony-info">
-                    <h3>Ceremonia Religiosa</h3>
-                    <p><strong>Lugar:</strong> Capilla Virgen del Carmen</p>
-                    <p><strong>Ubicación:</strong> Sebastián Paredes y Vicente Rojas</p>
-                    <p><strong>Hora:</strong> 15:45</p>
-                </div>
-            </div>
-
-            <div class="separator fade-in-element delay-3">
-                <span class="separator-icon">❀</span>
-            </div>
-
-            <div class="button-row fade-in-element delay-3">
-                <a href="https://maps.app.goo.gl/WiMJwd9oEEL7RzN77" class="btn btn-small">Maps: Capilla</a>
-                <a href="https://maps.app.goo.gl/FEw8QX5TpetZrCmY8" target="_blank" class="btn btn-small">Maps: Recepción</a>
-                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Jefferson+%26+Abigail&dates=20261010T154500/20261010T235959&details=Quinta+El+Carbonero&location=Loja,Ecuador"
-                    target="_blank" class="btn btn-small">Calendario</a>
-            </div>
+            </section>
+        
             <div class="scroll-indicator">
                 <span></span>
             </div>
@@ -1106,18 +1085,20 @@
 
 
             <div class="fade-in-element delay-3" style="
-                position: absolute; 
-                bottom: 0; 
-                right: 0; 
-                width: 33.33%; 
-                height: auto; 
-                z-index: -1; 
-                opacity: 0.8;">
-                <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/Loja2.png?raw=true" 
-                     loading="lazy" 
-                     alt="Imagen Final" 
-                     style="width: 100%; height: auto; display: block; object-fit: contain;">
-            </div>
+            position: absolute; 
+            bottom: 0; /* La base de la imagen se alinea con el fondo */
+            right: 0; 
+            width: 45%; /* Aumentamos un poco el tamaño para que se note más */
+            height: auto; 
+            z-index: 5; /* Un número alto para asegurar que esté por encima del texto */
+            opacity: 0.7;
+            transform: translateY(20%); /* Esto la empuja un poco hacia abajo si es muy alta, o cámbialo a -20% para que suba */
+            pointer-events: none;">
+            <img src="https://github.com/abilandia26-ship-it/boda-2026/blob/main/Loja2.png?raw=true" 
+                 loading="lazy" 
+                 alt="Imagen Final" 
+                 style="width: 100%; height: auto; display: block; object-fit: contain;">
+        </div>
             <div class="scroll-indicator">
                 <span></span>
             </div>
