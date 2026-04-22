@@ -5,10 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestra Boda | Abigail & Jefferson</title>
+
+    <!-- META TAGS PARA WHATSAPP Y REDES SOCIALES -->
+    <meta name="description" content="Abigail & Jefferson se casan el 10 de octubre de 2026 en Loja, Ecuador. ¡Estás invitado a nuestra boda!">
+    <meta property="og:title" content="Boda Abigail & Jefferson — 10.10.2026">
+    <meta property="og:description" content="Con mucho amor, te invitamos a compartir este día tan especial. Loja, Ecuador.">
+    <meta property="og:image" content="monogramas.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_EC">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Boda Abigail & Jefferson — 10.10.2026">
+    <meta name="twitter:description" content="Con mucho amor, te invitamos a compartir este día tan especial. Loja, Ecuador.">
+    <meta name="twitter:image" content="monogramas.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Great+Vibes&family=Montserrat:wght@200;400;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Great+Vibes&family=Montserrat:wght@200;400;600&display=block"
         rel="stylesheet">
     <style>
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--color-secondary);
+            border-top: 3px solid var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         .music-control {
             position: fixed;
             bottom: 20px;
@@ -617,7 +657,7 @@
 
         /* SLIDE 2: PORTADA PRINCIPAL (Fondo completo, Letras en tercio superior) - SOLICITUD Img 1, 4 y 2 */
         #slide2 {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://github.com/abilandia26-ship-it/boda-2026/blob/main/imagen%20novios.png?raw=true');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('imagen novios.jpg');
             background-size: cover;
             background-position: center;
             color: var(--color-white);
@@ -885,12 +925,74 @@
             align-items: center;
             gap: 5px;
         }
+        /* --- PANTALLA DE CARGA --- */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background-color: #fffcf9;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        #loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #loading-screen .loader-monogram {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: #c5a880;
+            animation: pulse-loader 1.5s ease-in-out infinite;
+        }
+        #loading-screen .loader-bar-track {
+            width: 160px;
+            height: 1px;
+            background: #e8d8c3;
+            position: relative;
+            overflow: hidden;
+        }
+        #loading-screen .loader-bar-fill {
+            position: absolute;
+            top: 0; left: 0;
+            height: 100%;
+            width: 0%;
+            background: #c5a880;
+            animation: load-bar 2s ease forwards;
+        }
+        #loading-screen .loader-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            color: #c5a880;
+            opacity: 0.8;
+        }
+        @keyframes pulse-loader {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.97); }
+        }
+        @keyframes load-bar {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
     </style>
 </head>
 
 <body class="day-mode">
 
-    <audio id="wedding-music" loop>
+    <!-- PANTALLA DE CARGA -->
+    <div id="loading-screen">
+        <div class="loader-monogram">A &amp; J</div>
+        <div class="loader-bar-track">
+            <div class="loader-bar-fill"></div>
+        </div>
+        <div class="loader-text">CARGANDO INVITACIÓN</div>
+    </div>
+
+    <audio id="wedding-music" loop preload="none">
         <source
             src="Sera por que te amo - Arcano1.mp3"
             type="audio/mpeg">
@@ -1067,15 +1169,15 @@
             </div>
 
 
-            <div class="fade-in-element delay-3" style="
+            <div style="
             position: absolute; 
-            bottom: 0; /* La base de la imagen se alinea con el fondo */
+            bottom: 0;
             right: 10%; 
-            width: 100%; /* Aumentamos un poco el tamaño para que se note más */
+            width: 100%;
             height: auto; 
-            z-index: 5; /* Un número alto para asegurar que esté por encima del texto */
+            z-index: 5;
             opacity: 0.7;
-            transform: translateY(20%); /* Esto la empuja un poco hacia abajo si es muy alta, o cámbialo a -20% para que suba */
+            transform: translateY(20%);
             pointer-events: none;">
             <img src="Loja2.png"
                  alt="Imagen Final" 
@@ -1262,15 +1364,16 @@
 
         /* --- REVELACIÓN DE ELEMENTOS (FADE IN) --- */
         const revealOptions = {
+            root: mainContainer, // ← CLAVE: el scroll ocurre aquí, no en el document
             threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px" // Dispara un poco antes de que llegue al centro
+            rootMargin: "0px 0px -30px 0px"
         };
 
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Se activa una sola vez y listo
+                    observer.unobserve(entry.target);
                 }
             });
         }, revealOptions);
@@ -1380,6 +1483,13 @@
 
             window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
             closeMusicModal();
+        });
+        /* --- OCULTAR PANTALLA DE CARGA --- */
+        window.addEventListener('load', function () {
+            // Esperamos un momento extra para que la animación sea visible
+            setTimeout(function () {
+                document.getElementById('loading-screen').classList.add('hidden');
+            }, 2200);
         });
     </script>
 </body>
