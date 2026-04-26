@@ -5,6 +5,7 @@ import { initCountdown } from './countdown.js';
 import { initAnimations } from './animations.js';
 import { initForms, openMusicModal, closeMusicModal } from './forms.js';
 import { initMedia } from './media.js';
+import { initParticles } from './particles.js';
 
 // Import slides
 import slide1 from '../sections/slide1.html?raw';
@@ -71,6 +72,7 @@ function init() {
     initAnimations();
     initForms();
     initMedia();
+    initParticles();
 
     // Hide loading screen
     window.addEventListener('load', () => {
