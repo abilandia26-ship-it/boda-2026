@@ -52,7 +52,7 @@ function init() {
         </div>
 
         <audio id="wedding-music" loop preload="none">
-            <source src="/Sera por que te amo - Arcano1.mp3" type="audio/mpeg">
+            <source src="musica_boda.mp3" type="audio/mpeg">
         </audio>
     `;
 
