@@ -44,11 +44,11 @@ function init() {
         
         <!-- Loading Screen -->
         <div id="loading-screen">
-            <div class="loader-monogram">A &amp; J</div>
+            <div class="loader-monogram">♥</div>
             <div class="loader-bar-track">
                 <div class="loader-bar-fill"></div>
             </div>
-            <div class="loader-text">CARGANDO INVITACIÓN</div>
+            <div class="loader-text">NUESTRA HISTORIA COMIENZA</div>
         </div>
 
         <audio id="wedding-music" loop preload="none">
