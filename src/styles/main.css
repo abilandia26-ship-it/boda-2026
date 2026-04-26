@@ -329,7 +329,7 @@ p {
 
 /* Slide 2: Cover */
 #slide2 {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('imagen_novios.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/imagen_novios.jpg');
     background-size: cover;
     background-position: center;
     color: var(--color-white);
