@@ -487,12 +487,22 @@ p {
     margin: 30px auto;
 }
 
-.rsvp-form input, 
-.rsvp-form select {
-    padding: 12px;
-    border: 1px solid #ddd;
+.rsvp-form input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--color-secondary);
+    padding: 12px 5px;
     font-family: var(--font-body);
     font-size: 0.9rem;
+    color: var(--color-text);
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+
+.rsvp-form input:focus {
+    outline: none;
+    border-bottom-color: var(--color-primary);
+    background: rgba(197, 168, 128, 0.03);
 }
 
 .radio-group {
@@ -521,31 +531,72 @@ p {
 }
 
 .modal-content {
-    background-color: var(--color-bg);
-    padding: 30px;
-    border: 1px solid var(--color-primary);
-    width: 90%;
-    max-width: 450px;
-    border-radius: 15px;
+    background-color: rgba(255, 252, 249, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 40px 30px;
+    border: 1px solid var(--color-secondary);
+    width: 92%;
+    max-width: 400px;
+    border-radius: 20px;
     position: relative;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
     text-align: center;
+}
+
+.modal-content h2 {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+    color: var(--color-primary);
+}
+
+.modal-content p {
+    font-size: 0.85rem;
+    margin-bottom: 25px;
+    opacity: 0.8;
 }
 
 .close-modal {
     position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 1.5rem;
+    right: 20px;
+    top: 15px;
+    font-size: 1.8rem;
     cursor: pointer;
     color: var(--color-primary);
+    transition: transform 0.3s ease;
+}
+
+.close-modal:hover {
+    transform: rotate(90deg);
 }
 
 .modal form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
+    gap: 20px;
+}
+
+.modal input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--color-secondary);
+    padding: 10px 5px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text);
+    transition: all 0.3s ease;
+    border-radius: 0;
+}
+
+.modal input:focus {
+    outline: none;
+    border-bottom-color: var(--color-primary);
+    background: rgba(197, 168, 128, 0.03);
+}
+
+.modal input::placeholder {
+    color: #bbb;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
 
 /* Utils */

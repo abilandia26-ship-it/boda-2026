@@ -4,15 +4,51 @@ export function initForms() {
     if (rsvpForm) {
         rsvpForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            const nombre = this.nombre.value;
-            const asistenciaEl = this.querySelector('input[name="asistencia"]:checked');
-            const asistencia = asistenciaEl ? asistenciaEl.value : "";
-            const alergias = this.alergias.value || "Ninguna";
-            const telefono = this.telefono.value;
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "Enviando...";
+            btn.disabled = true;
 
-            const mensaje = `¡Hola! Soy ${nombre}. Confirmo que ${asistencia === 'si' ? 'SÍ asistiré' : 'NO podré asistir'} a la boda. Alergias: ${alergias}. Mi tel: ${telefono}`;
+            const params = new URLSearchParams();
+            params.append('entry.1959707855', this.nombre.value);
+            params.append('entry.269848605', this.querySelector('input[name="asistencia"]:checked').value);
+            params.append('entry.1916552038', this.alergias.value || "Ninguna");
+            params.append('entry.1096616265', this.telefono.value);
 
-            window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
+            const googleFormsUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScf124vIfgsIMNVae7LV9rnn5GLlWPNgmS8CyWUIHKPvINxIQ/formResponse';
+
+            fetch(googleFormsUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params.toString()
+            }).then(() => {
+                // En modo no-cors, el 'then' se ejecuta si la petición se envió, 
+                // independientemente de lo que diga el servidor.
+                btn.innerHTML = "¡Confirmado!";
+                btn.style.backgroundColor = "#7f8868";
+                btn.style.color = "white";
+                this.reset();
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.style.backgroundColor = "";
+                    btn.style.color = "";
+                }, 5000);
+            }).catch(error => {
+                console.error('Error de red:', error);
+                btn.innerHTML = "❌ Error de conexión";
+                btn.style.backgroundColor = "#d9534f"; // Rojo para error
+                btn.style.color = "white";
+                btn.disabled = false;
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.backgroundColor = "";
+                    btn.style.color = "";
+                }, 5000);
+            });
         });
     }
 
@@ -21,18 +57,44 @@ export function initForms() {
     if (musicForm) {
         musicForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const guest = document.getElementById('mGuest').value;
-            const song = document.getElementById('mSong').value;
-            const artist = document.getElementById('mArtist').value;
-            const link = document.getElementById('mLink').value || "No incluido";
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "Enviando...";
+            btn.disabled = true;
 
-            const mensaje = `¡Hola! Soy ${guest}. Me encantaría sugerir esta canción para la boda: 
-            🎵 Canción: ${song}
-            👤 Artista: ${artist}
-            🔗 Link: ${link}`;
+            const params = new URLSearchParams();
+            params.append('entry.1121410571', document.getElementById('mGuest').value);
+            params.append('entry.928136637', document.getElementById('mSong').value);
+            params.append('entry.1918756479', document.getElementById('mArtist').value);
+            // El link no está mapeado en tu nuevo Form, así que no lo enviamos por ahora
 
-            window.open(`https://wa.me/593990044362?text=${encodeURIComponent(mensaje)}`, '_blank');
-            closeMusicModal();
+            const musicGoogleUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSet6wi0z6CjZyP6eAoVs_PoHY1q4HQGw0tpKuFUQPDZq2J_gA/formResponse';
+
+            fetch(musicGoogleUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params.toString()
+            }).then(() => {
+                btn.innerHTML = "¡Sugerencia enviada!";
+                btn.style.backgroundColor = "#7f8868";
+                btn.style.color = "white";
+                this.reset();
+                setTimeout(() => {
+                    closeMusicModal();
+                    // Reset botón para la próxima vez
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.style.backgroundColor = "";
+                    btn.style.color = "";
+                }, 2000);
+            }).catch(error => {
+                console.error('Error:', error);
+                btn.innerHTML = "❌ Error al enviar";
+                btn.disabled = false;
+            });
         });
     }
 
