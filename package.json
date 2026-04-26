@@ -1,0 +1,25 @@
+{
+  "name": "boda-2026",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scripts.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abilandia26-ship-it/boda-2026.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abilandia26-ship-it/boda-2026/issues"
+  },
+  "homepage": "https://github.com/abilandia26-ship-it/boda-2026#readme",
+  "devDependencies": {
+    "vite": "^6.4.2"
+  }
+}
