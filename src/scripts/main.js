@@ -94,7 +94,7 @@ function init() {
     const guest = window.currentGuest;
     const greetingEl = document.getElementById('guest-greeting');
     if (greetingEl) {
-        greetingEl.textContent = `Invitación para: ${guest.n} ${guest.a}`;
+        greetingEl.textContent = `${guest.n} ${guest.a}`;
     }
 
     const passesInfo = document.getElementById('guest-passes-info');
