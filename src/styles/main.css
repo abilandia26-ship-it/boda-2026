@@ -53,7 +53,7 @@ body {
 
 .loader-monogram {
     font-family: var(--font-monogram);
-    font-size: 3.5rem;
+    font-size: 1.5rem;
     color: var(--color-primary);
     animation: pulse-loader 1.5s ease-in-out infinite;
 }
@@ -359,7 +359,7 @@ p {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/imagen_novios.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/imagen_novios.png');
     background-size: cover;
     background-position: center;
     z-index: 0; /* Capa base de la imagen */
@@ -651,7 +651,7 @@ p {
 
 .bank-info p {
     margin-bottom: 8px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .img-fluid {
