@@ -359,7 +359,7 @@ p {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/imagen_novios.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/imagen_novios.png');
     background-size: cover;
     background-position: center;
     z-index: 0; /* Capa base de la imagen */
