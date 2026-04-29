@@ -706,6 +706,84 @@ p {
     color: #777;
     margin: 0;
 }
+/* Contenedor General */
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Fila de Grid: 80px (Hora) | 40px (Línea) | 1fr (Texto) */
+.timeline-row {
+    display: grid;
+    grid-template-columns: 80px 40px 1fr;
+    align-items: start;
+}
+
+/* Columna Izquierda: Horas */
+.timeline-left {
+    text-align: right;
+    padding-top: 5px;
+    font-family: var(--font-title);
+    color: var(--color-primary);
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Columna Central: Línea y Puntos */
+.timeline-center {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 100%; /* Importante para que la línea sea continua */
+    min-height: 80px;
+}
+
+/* La línea vertical */
+.timeline-center .line {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background-color: var(--color-primary);
+    opacity: 0.3;
+}
+
+/* Quitar línea sobrante al inicio y final */
+.top-none { top: 15px !important; height: calc(100% - 15px) !important; }
+.bottom-none { height: 15px !important; }
+
+/* Los círculos */
+.dot-gold, .dot-empty {
+    position: absolute;
+    top: 15px; /* Alineado con la primera línea de texto */
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-primary);
+    z-index: 2;
+}
+
+/* Columna Derecha: Textos */
+.timeline-right {
+    text-align: left;
+    padding: 0 0 30px 15px;
+}
+
+.timeline-right h3 {
+    font-size: 1.1rem;
+    margin: 0 0 5px 0;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-weight: 600;
+}
+
+.timeline-right p {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0;
+}
 
 /* Slide 8: Hotels */
 #slide8 {
