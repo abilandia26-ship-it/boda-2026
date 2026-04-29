@@ -642,71 +642,9 @@ p {
     }
 }
 
-/* DEFINICIÓN DE LA LÍNEA VERTICAL */
-#slide6 .timeline::before {
-    content: '';
-    position: absolute;
-    left: 90px; /* Alineación con el centro de los puntos */
-    top: 20px;
-    bottom: 20px;
-    width: 1px;
-    background: var(--color-primary); /* Color #c5a880 */
-    opacity: 0.4;
-    z-index: 0;
-}
+/* --- ORDEN DEL DÍA (SLIDE 6) --- */
 
-#slide6 .timeline-item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 35px;
-    position: relative;
-    z-index: 1;
-}
-
-/* Columna Izquierda: Horas y Puntos */
-#slide6 .timeline-time {
-    min-width: 90px;
-    text-align: right;
-    padding-right: 25px;
-    color: var(--color-primary);
-    font-family: var(--font-title);
-}
-
-#slide6 .time-text {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-top: -5px;
-}
-
-/* Estilo del punto con fondo sólido para "tapar" la línea */
-#slide6 .dot {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    background: var(--color-bg); /* #fffcf9 para ocultar la línea detrás */
-    border: 2px solid var(--color-primary);
-    border-radius: 50%;
-    margin-top: 5px;
-}
-
-/* Columna Derecha: Textos */
-#slide6 .timeline-content {
-    text-align: left;
-    padding-left: 20px;
-}
-
-#slide6 .timeline-content h3 {
-    font-size: 1.1rem;
-    margin-bottom: 2px;
-    color: var(--color-text);
-}
-
-#slide6 .timeline-content p {
-    font-size: 0.85rem;
-    color: #777;
-    margin: 0;
-}
-/* Contenedor General */
+/* Contenedor que agrupa todas las filas */
 .timeline-container {
     display: flex;
     flex-direction: column;
@@ -714,33 +652,33 @@ p {
     margin: 0 auto;
 }
 
-/* Fila de Grid: 80px (Hora) | 40px (Línea) | 1fr (Texto) */
+/* Fila dividida en: 80px (Hora) | 40px (Espacio Línea) | El resto (Texto) */
 .timeline-row {
     display: grid;
     grid-template-columns: 80px 40px 1fr;
     align-items: start;
 }
 
-/* Columna Izquierda: Horas */
+/* Columna Izquierda: Números de la hora */
 .timeline-left {
     text-align: right;
-    padding-top: 5px;
+    padding-top: 12px; /* Alinea la hora con el primer renglón del título */
     font-family: var(--font-title);
     color: var(--color-primary);
     font-size: 1.1rem;
     font-weight: bold;
 }
 
-/* Columna Central: Línea y Puntos */
+/* Columna Central: Contenedor de la línea y el círculo */
 .timeline-center {
     position: relative;
     display: flex;
     justify-content: center;
-    height: 100%; /* Importante para que la línea sea continua */
+    height: 100%;
     min-height: 80px;
 }
 
-/* La línea vertical */
+/* La línea vertical fina */
 .timeline-center .line {
     position: absolute;
     width: 1px;
@@ -749,14 +687,14 @@ p {
     opacity: 0.3;
 }
 
-/* Quitar línea sobrante al inicio y final */
-.top-none { top: 15px !important; height: calc(100% - 15px) !important; }
-.bottom-none { height: 15px !important; }
+/* Clases para que la línea no sobresalga en el primer y último item */
+.top-none { top: 20px !important; height: calc(100% - 20px) !important; }
+.bottom-none { height: 20px !important; }
 
-/* Los círculos */
+/* El círculo/punto dorado */
 .dot-gold, .dot-empty {
     position: absolute;
-    top: 15px; /* Alineado con la primera línea de texto */
+    top: 20px; /* Misma altura que la hora y el título */
     width: 12px;
     height: 12px;
     border-radius: 50%;
@@ -765,26 +703,25 @@ p {
     z-index: 2;
 }
 
-/* Columna Derecha: Textos */
+/* Columna Derecha: Títulos y descripciones */
 .timeline-right {
     text-align: left;
-    padding: 0 0 30px 15px;
+    padding: 0 0 35px 15px; /* Espacio entre filas */
 }
 
 .timeline-right h3 {
-    font-size: 1.1rem;
-    margin: 0 0 5px 0;
+    font-family: var(--font-title);
+    font-size: 1.3rem;
+    margin: 0 0 3px 0;
     color: var(--color-text);
-    font-family: var(--font-body);
-    font-weight: 600;
 }
 
 .timeline-right p {
+    font-family: var(--font-body);
     font-size: 0.85rem;
     color: #888;
     margin: 0;
 }
-
 /* Slide 8: Hotels */
 #slide8 {
     justify-content: flex-start;
