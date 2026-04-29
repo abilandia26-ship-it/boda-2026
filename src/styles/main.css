@@ -810,3 +810,74 @@ p {
     height: auto !important;
     margin-top: 15px !important;
 }
+/* --- DISEÑO ESPECÍFICO SLIDE 5 (CON TAMAÑOS ESTÁNDAR) --- */
+
+#slide5 .s5-main-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+    max-width: 1100px !important;
+    margin: 0 auto 30px auto !important;
+}
+
+/* Títulos de los lugares (Capilla/Quinta) */
+#slide5 .s5-name {
+    font-family: var(--font-title) !important; /* Cormorant Garamond */
+    font-size: 1.8rem !important; /* Igual a tus otros h3 */
+    color: var(--color-primary) !important;
+    margin: 10px 0 !important;
+}
+
+/* Texto de las horas */
+#slide5 .s5-hour {
+    font-family: var(--font-body) !important; /* Montserrat */
+    font-size: 1rem !important; /* Igual a tus otros p */
+    color: var(--color-text) !important;
+    margin-bottom: 20px !important;
+}
+
+/* Etiquetas superiores (CEREMONIA/RECEPCIÓN) */
+#slide5 .s5-type {
+    font-family: var(--font-body) !important;
+    font-size: 0.75rem !important; /* Igual a la tipografía de tus botones */
+    letter-spacing: 2px !important;
+    opacity: 0.7;
+    color: var(--color-text) !important;
+}
+
+/* Columna e Imagen */
+#slide5 .s5-column {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 0 15px !important;
+}
+
+#slide5 .s5-img {
+    width: 100% !important;
+    max-width: 350px !important;
+    height: auto !important;
+    mix-blend-mode: multiply !important;
+}
+
+#slide5 .s5-vertical-line {
+    width: 1px !important;
+    background-color: var(--color-primary) !important;
+    height: 300px !important;
+    margin-top: 60px !important;
+    opacity: 0.3;
+}
+
+/* Responsivo para móviles */
+@media (max-width: 768px) {
+    #slide5 .s5-main-container {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    #slide5 .s5-vertical-line {
+        display: none !important;
+    }
+}
