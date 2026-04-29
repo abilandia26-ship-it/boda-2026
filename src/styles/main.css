@@ -761,19 +761,88 @@ p {
         padding-top: 40px !important;
     }
 }
-/* --- Estilos exclusivos para la Diapositiva 5 --- */
-
+/* Contenedor principal solo para Slide 5 */
 #slide5 .s5-columns-wrapper {
     display: flex;
     justify-content: center;
-    /* ... resto del código ... */
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: 30px auto;
+    position: relative;
 }
 
+/* Estilo de cada columna */
+#slide5 .s5-col {
+    flex: 1;
+    padding: 0 15px;
+    text-align: center;
+}
+
+/* Etiquetas (Ceremonia / Recepción) */
+#slide5 .s5-label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #8a8a8a;
+    margin-bottom: 5px;
+}
+
+/* Nombres de lugares */
+#slide5 .s5-location {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin: 5px 0;
+    color: #333;
+}
+
+/* Horas */
+#slide5 .s5-time {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Imágenes */
+#slide5 .s5-img-container img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Línea divisoria dorada */
 #slide5 .s5-divider {
     width: 1px;
-    background-color: #d4af37;
+    background-color: #d4af37; /* Color oro */
     height: 400px;
-    /* ... resto del código ... */
+    align-self: center;
 }
 
-/* El resto de clases que te pasé anteriormente */
+/* Botones específicos de esta slide */
+#slide5 .btn-s5 {
+    border: 1px solid #c5a059;
+    color: #c5a059;
+    padding: 8px 18px;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin: 5px;
+    display: inline-block;
+    border-radius: 4px;
+}
+
+/* Ajuste móvil: se apilan una sobre otra */
+@media (max-width: 768px) {
+    #slide5 .s5-columns-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    #slide5 .s5-divider {
+        display: none; /* Oculta la línea en móviles */
+    }
+    #slide5 .s5-col {
+        margin-bottom: 30px;
+    }
+}
