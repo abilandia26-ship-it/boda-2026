@@ -880,4 +880,11 @@ p {
     opacity: 0.3;
 }
 
+@media (max-width: 768px) {
+    #slide5 .s5-vertical-line {
+        height: 150px !important;
+        margin-top: 50px !important;
+    }
+}
+
 
