@@ -788,8 +788,8 @@ p {
 #slide5 .s5-vertical-line {
     width: 1px !important;
     background-color: #c5a880 !important;
-    height: 200px !important; /* Ajusta según el alto de tus fotos */
-    margin-top: 10px !important;
+    height: 100px !important; /* Ajusta según el alto de tus fotos */
+    margin-top: 0px !important;
     opacity: 0.5;
 }
 
