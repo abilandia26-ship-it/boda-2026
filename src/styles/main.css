@@ -644,84 +644,91 @@ p {
 
 /* --- ORDEN DEL DÍA (SLIDE 6) --- */
 
-/* Contenedor que agrupa todas las filas */
-.timeline-container {
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
+/* --- ESTILO ORDEN DEL DÍA (GRID) --- */
+
+#slide6 .timeline-container {
+    display: flex !important;
+    flex-direction: column !important;
+    max-width: 600px;
     margin: 0 auto;
+    background: transparent !important;
 }
 
-/* Fila dividida en: 80px (Hora) | 40px (Espacio Línea) | El resto (Texto) */
-.timeline-row {
-    display: grid;
-    grid-template-columns: 80px 40px 1fr;
-    align-items: start;
+/* Forzamos 3 columnas: Hora | Línea | Texto */
+#slide6 .timeline-row {
+    display: grid !important;
+    grid-template-columns: 80px 40px 1fr !important;
+    align-items: stretch !important; /* Estira la línea para que sea continua */
+    min-height: 90px;
 }
 
-/* Columna Izquierda: Números de la hora */
-.timeline-left {
+/* Columna de la hora */
+#slide6 .timeline-left {
     text-align: right;
-    padding-top: 12px; /* Alinea la hora con el primer renglón del título */
+    padding-top: 22px;
     font-family: var(--font-title);
     color: var(--color-primary);
     font-size: 1.1rem;
     font-weight: bold;
 }
 
-/* Columna Central: Contenedor de la línea y el círculo */
-.timeline-center {
+/* Columna de la línea y el punto */
+#slide6 .timeline-center {
     position: relative;
     display: flex;
     justify-content: center;
-    height: 100%;
-    min-height: 80px;
 }
 
-/* La línea vertical fina */
-.timeline-center .line {
-    position: absolute;
+#slide6 .timeline-center .line {
     width: 1px;
-    height: 100%;
     background-color: var(--color-primary);
-    opacity: 0.3;
+    opacity: 0.4;
+    height: 100%;
 }
 
-/* Clases para que la línea no sobresalga en el primer y último item */
-.top-none { top: 20px !important; height: calc(100% - 20px) !important; }
-.bottom-none { height: 20px !important; }
+/* Evitar que la línea sobresalga en el primer y último item */
+#slide6 .top-none { margin-top: 25px; height: calc(100% - 25px) !important; }
+#slide6 .bottom-none { height: 25px !important; }
 
-/* El círculo/punto dorado */
-.dot-gold, .dot-empty {
+/* El círculo dorado */
+#slide6 .dot-gold {
     position: absolute;
-    top: 20px; /* Misma altura que la hora y el título */
+    top: 25px; 
     width: 12px;
     height: 12px;
-    border-radius: 50%;
-    background-color: var(--color-bg);
+    background-color: var(--color-bg); /* #fffcf9 */
     border: 2px solid var(--color-primary);
+    border-radius: 50%;
     z-index: 2;
 }
 
-/* Columna Derecha: Títulos y descripciones */
-.timeline-right {
-    text-align: left;
-    padding: 0 0 35px 15px; /* Espacio entre filas */
+/* Columna del texto (Alineado a la izquierda) */
+#slide6 .timeline-right {
+    text-align: left !important; /* Asegura que no se centre */
+    padding: 18px 0 30px 15px;
 }
 
-.timeline-right h3 {
+#slide6 .timeline-right h3 {
     font-family: var(--font-title);
-    font-size: 1.3rem;
-    margin: 0 0 3px 0;
+    font-size: 1.4rem;
+    margin: 0 0 5px 0;
     color: var(--color-text);
 }
 
-.timeline-right p {
+#slide6 .timeline-right p {
     font-family: var(--font-body);
     font-size: 0.85rem;
-    color: #888;
+    color: #666;
     margin: 0;
 }
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 480px) {
+    #slide6 .timeline-row {
+        grid-template-columns: 60px 40px 1fr !important;
+    }
+}
+
 /* Slide 8: Hotels */
 #slide8 {
     justify-content: flex-start;
