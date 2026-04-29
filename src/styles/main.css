@@ -825,7 +825,7 @@ p {
 /* Títulos de los lugares (Capilla/Quinta) */
 #slide5 .s5-name {
     font-family: var(--font-body) !important; /* Montserrat */
-    font-size: 1rem !important; /* Igual a tus otros p */
+    font-size: 0.8rem !important; /* Igual a tus otros p */
     color: var(--color-text) !important;
     margin: 10px 0 !important;
 }
