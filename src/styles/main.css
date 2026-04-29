@@ -871,13 +871,4 @@ p {
     opacity: 0.3;
 }
 
-/* Responsivo para móviles */
-@media (max-width: 768px) {
-    #slide5 .s5-main-container {
-        flex-direction: column !important;
-        align-items: center !important;
-    }
-    #slide5 .s5-vertical-line {
-        display: none !important;
-    }
-}
+
