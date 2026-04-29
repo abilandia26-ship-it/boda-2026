@@ -784,23 +784,32 @@ p {
     padding: 0 10px !important;
 }
 
-/* 3. La línea divisoria */
+/* 3. La línea divisoria corregida */
 #slide5 .s5-vertical-line {
     width: 1px !important;
     background-color: #c5a880 !important;
-    height: 100px !important; /* Ajusta según el alto de tus fotos */
+    height: 100px !important; 
     margin-top: 0px !important;
+    margin-bottom: 0px !important; /* Asegura que no empuje hacia abajo */
     opacity: 0.5;
+    align-self: flex-start !important; /* Evita que se estire al fondo */
 }
 
-/* 4. LOS BOTONES: Se mantienen fuera del flex de columnas */
-#slide5 .button-row {
+/* 4. Ajuste del contenedor para cerrar el hueco */
+#slide5 .s5-main-container {
     display: flex !important;
-    flex-direction: row !important; /* Botones en fila horizontal */
+    flex-direction: row !important;
     justify-content: center !important;
-    flex-wrap: wrap !important; /* Si no caben, bajan */
-    width: 100% !important;
-    gap: 15px !important;
+    align-items: flex-start !important; 
+    height: auto !important; /* Permite que el contenedor sea pequeño */
+    min-height: 0 !important; /* Elimina alturas mínimas heredadas */
+    margin-bottom: 0px !important; /* Pega los botones a las imágenes */
+    padding-bottom: 0px !important;
+}
+
+/* 5. Ajuste de los botones para que suban */
+#slide5 .button-row {
+    margin-top: 5px !important; /* Controla la distancia exacta a la que quieres los botones */
 }
 
 /* Ajustes de imagen */
