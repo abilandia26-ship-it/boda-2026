@@ -53,7 +53,6 @@ function init() {
             ${slide6}
             ${slide7}
             ${slide8}
-            ${slide9}
             ${slide10}
             ${slide11}
             ${utils}
