@@ -1,30 +1,21 @@
-<section id="slide10" style="position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 100vh; padding: 20px;">
+<section id="slide10" style="background-color: #7f8868; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 100vh; padding: 20px;">
     
-    <!-- 1. VIDEO DE FONDO -->
-    <video autoplay muted loop playsinline 
-           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
-        <source src="FondoMusica.mp4" type="video/mp4">
-    </video>
-
-    <!-- 2. CAPA OSCURA (Para que las letras blancas se lean bien) -->
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 0;"></div>
-
-    <!-- 3. CONTENIDO (Con letras blancas) -->
-    <div style="position: relative; z-index: 1; color: white !important;">
+    <!-- CONTENIDO CON LETRAS BLANCAS -->
+    <div style="color: white !important;">
         <div class="fade-in-element" style="width: 150px; height: 150px; margin: 0 auto 15px;">
-            <!-- Filtro para que el icono también se vea blanco si es oscuro -->
+            <!-- El filtro convierte el icono en blanco para que resalte sobre el verde -->
             <img src="musica_boda_icono.png" alt="Icono Música" class="img-fluid" style="filter: brightness(0) invert(1);">
         </div>
         
-        <h2 class="fade-in-element" style="color: white !important; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+        <h2 class="fade-in-element" style="color: white !important;">
             Música de nuestra boda
         </h2>
         
-        <p class="fade-in-element delay-1" style="color: white !important; font-size: 0.9rem; opacity: 1; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
+        <p class="fade-in-element delay-1" style="color: white !important; font-size: 0.9rem; opacity: 1;">
             ¡Queremos que la pista de baile nunca esté vacía! Ayúdanos sugiriendo esa canción que no puede faltar.
         </p>
         
-        <button class="btn fade-in-element delay-2" id="suggest-music-btn" style="background: rgba(255,255,255,0.2); border: 1px solid white; color: white !important;">
+        <button class="btn fade-in-element delay-2" id="suggest-music-btn" style="background: transparent; border: 1px solid white; color: white !important; margin-top: 20px;">
             Sugerir canción
         </button>
     </div>
