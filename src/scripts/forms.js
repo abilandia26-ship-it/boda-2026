@@ -12,21 +12,41 @@ export function initForms() {
             const asistenciaRadio = this.querySelector('input[name="asistencia"]:checked').value;
             let finalAsistencia = asistenciaRadio;
             
-            const passesContainer = document.getElementById('passes-selection-container');
-            if (passesContainer && passesContainer.style.display !== 'none' && asistenciaRadio === 'Sí, estaré allí') {
-                if (!this.pases_utilizados.value) {
-                    alert('Por favor selecciona cuántos pases vas a ocupar.');
+            // Si el invitado tiene más de 1 pase y asiste, debe escoger cuántos usará
+            const guest = window.currentGuest;
+            let pasesInfo = '';
+            if (guest && guest.p > 1 && asistenciaRadio === 'Sí, estaré allí') {
+                const passesSelect = document.getElementById('pases-utilizados');
+
+                // Limpiar error previo
+                if (passesSelect) passesSelect.style.borderColor = '';
+                const prevErr = document.getElementById('passes-error-msg');
+                if (prevErr) prevErr.remove();
+
+                if (!passesSelect || !passesSelect.value) {
+                    // Error visual: borde rojo + mensaje debajo del select
+                    passesSelect.style.borderColor = '#d9534f';
+                    const errMsg = document.createElement('p');
+                    errMsg.id = 'passes-error-msg';
+                    errMsg.textContent = '⚠ Por favor indica cuántos pases vas a ocupar.';
+                    errMsg.style.cssText = 'color:#d9534f; font-size:0.75rem; margin-top:4px; text-align:left;';
+                    passesSelect.parentNode.appendChild(errMsg);
+                    passesSelect.focus();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
                     return;
                 }
-                finalAsistencia += ` (${this.pases_utilizados.value} de ${window.currentGuest.p} pases)`;
+
+                // Guardamos los pases para incluirlos en alergias (campo texto libre)
+                pasesInfo = ` | Pases: ${passesSelect.value} de ${guest.p}`;
             }
+
+            const alergias = (this.alergias.value || 'Ninguna') + pasesInfo;
 
             const params = new URLSearchParams();
             params.append('entry.1959707855', this.nombre.value);
-            params.append('entry.269848605', finalAsistencia);
-            params.append('entry.1916552038', this.alergias.value || "Ninguna");
+            params.append('entry.269848605', finalAsistencia); // Valor exacto del radio button
+            params.append('entry.1916552038', alergias);       // Alergias + pases usados
             params.append('entry.1096616265', this.telefono.value);
 
             const googleFormsUrl = 'https://docs.google.com/forms/d/e/1FAIpQLScf124vIfgsIMNVae7LV9rnn5GLlWPNgmS8CyWUIHKPvINxIQ/formResponse';

@@ -112,7 +112,7 @@ function init() {
             passesSelect.appendChild(option);
         }
 
-        // Ocultar o mostrar si eligen no asistir
+        // Ocultar o mostrar según la asistencia
         const attendanceRadios = document.querySelectorAll('input[name="asistencia"]');
         attendanceRadios.forEach(radio => {
             radio.addEventListener('change', function() {
@@ -120,6 +120,11 @@ function init() {
                     passesContainer.style.display = 'block';
                 } else {
                     passesContainer.style.display = 'none';
+                    passesSelect.value = ''; // Limpiar al ocultar
+                    // Limpiar error visual si existiera
+                    passesSelect.style.borderColor = '';
+                    const errMsg = document.getElementById('passes-error-msg');
+                    if (errMsg) errMsg.remove();
                 }
             });
         });
