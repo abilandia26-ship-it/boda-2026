@@ -62,7 +62,7 @@ export function initParticles() {
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(197, 168, 128, ${this.opacity})`; // color-primary
             ctx.fill();
-            
+
             // Efecto de resplandor sutil
             ctx.shadowBlur = 5;
             ctx.shadowColor = `rgba(197, 168, 128, ${this.opacity})`;
