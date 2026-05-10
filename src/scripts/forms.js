@@ -9,9 +9,23 @@ export function initForms() {
             btn.innerHTML = "Enviando...";
             btn.disabled = true;
 
+            const asistenciaRadio = this.querySelector('input[name="asistencia"]:checked').value;
+            let finalAsistencia = asistenciaRadio;
+            
+            const passesContainer = document.getElementById('passes-selection-container');
+            if (passesContainer && passesContainer.style.display !== 'none' && asistenciaRadio === 'Sí, estaré allí') {
+                if (!this.pases_utilizados.value) {
+                    alert('Por favor selecciona cuántos pases vas a ocupar.');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    return;
+                }
+                finalAsistencia += ` (${this.pases_utilizados.value} de ${window.currentGuest.p} pases)`;
+            }
+
             const params = new URLSearchParams();
             params.append('entry.1959707855', this.nombre.value);
-            params.append('entry.269848605', this.querySelector('input[name="asistencia"]:checked').value);
+            params.append('entry.269848605', finalAsistencia);
             params.append('entry.1916552038', this.alergias.value || "Ninguna");
             params.append('entry.1096616265', this.telefono.value);
 

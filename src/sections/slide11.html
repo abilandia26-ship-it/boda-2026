@@ -7,6 +7,11 @@
             <label><input type="radio" name="asistencia" value="Lo siento, no puedo"> Lo siento, no puedo</label>
         </div>
         <p id="guest-passes-info" style="font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: var(--color-primary);"></p>
+        <div id="passes-selection-container" style="display: none; margin-bottom: 15px; width: 100%;">
+            <select name="pases_utilizados" id="pases-utilizados" style="width: 100%; padding: 10px; background: rgba(197, 168, 128, 0.05); border: none; border-bottom: 1px solid var(--color-secondary); color: var(--color-text); font-family: var(--font-body); font-size: 0.9rem; outline: none; border-radius: 4px;">
+                <option value="">¿Cuántos pases vas a ocupar?</option>
+            </select>
+        </div>
         <input type="text" name="nombre" id="rsvp-nombre" placeholder="Nombre completo" required>
         <input type="text" name="alergias" placeholder="Alergias">
         <input type="tel" name="telefono" placeholder="09 900 44362" required>

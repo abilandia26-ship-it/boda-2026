@@ -101,6 +101,30 @@ function init() {
         passesInfo.textContent = `Tienes pases reservados para: ${guest.p} persona(s)`;
     }
 
+    const passesContainer = document.getElementById('passes-selection-container');
+    const passesSelect = document.getElementById('pases-utilizados');
+    if (passesContainer && passesSelect && guest.p > 1) {
+        // Inicialmente se mantiene oculto por el CSS hasta que elijan "Sí, estaré allí"
+        for (let i = 1; i <= guest.p; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i === 1 ? '1 pase' : `${i} pases`;
+            passesSelect.appendChild(option);
+        }
+
+        // Ocultar o mostrar si eligen no asistir
+        const attendanceRadios = document.querySelectorAll('input[name="asistencia"]');
+        attendanceRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'Sí, estaré allí') {
+                    passesContainer.style.display = 'block';
+                } else {
+                    passesContainer.style.display = 'none';
+                }
+            });
+        });
+    }
+
     const rsvpName = document.getElementById('rsvp-nombre');
     if (rsvpName) {
         rsvpName.value = `${guest.n} ${guest.a}`;
