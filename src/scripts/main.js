@@ -1,11 +1,27 @@
 import '../styles/main.css';
 
-// Import modules
 import { initCountdown } from './countdown.js';
 import { initAnimations } from './animations.js';
 import { initForms, openMusicModal, closeMusicModal } from './forms.js';
 import { initMedia } from './media.js';
 import { initParticles } from './particles.js';
+import guestsData from '../data/guests.json';
+
+// Validación de Invitado
+const urlParams = new URLSearchParams(window.location.search);
+const guestId = urlParams.get('id');
+
+if (!guestId || !guestsData[guestId]) {
+    document.body.innerHTML = `
+        <div style="height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#fffcf9; color:#c5a880; font-family:'Montserrat', sans-serif; text-align:center; padding:20px;">
+            <h1 style="font-family:'Cormorant Garamond', serif; font-size: 2.5rem; margin-bottom:10px;">Acceso Denegado</h1>
+            <p style="color:#4a4a4a;">Este enlace de invitación no es válido o ha caducado. Por favor solicita el enlace correcto a los novios.</p>
+        </div>
+    `;
+    throw new Error("Invalid or missing guest ID");
+}
+
+window.currentGuest = guestsData[guestId];
 
 // Import slides
 import slide1 from '../sections/slide1.html?raw';
@@ -37,7 +53,6 @@ function init() {
             ${slide6}
             ${slide7}
             ${slide8}
-            ${slide9}
             ${slide10}
             ${slide11}
             ${utils}
@@ -73,6 +88,23 @@ function init() {
     initForms();
     initMedia();
     initParticles();
+
+    // Personalizar DOM con los datos del invitado
+    const guest = window.currentGuest;
+    const greetingEl = document.getElementById('guest-greeting');
+    if (greetingEl) {
+        greetingEl.textContent = `${guest.n} ${guest.a}`;
+    }
+
+    const passesInfo = document.getElementById('guest-passes-info');
+    if (passesInfo) {
+        passesInfo.textContent = `Tienes pases reservados para: ${guest.p} persona(s)`;
+    }
+
+    const rsvpName = document.getElementById('rsvp-nombre');
+    if (rsvpName) {
+        rsvpName.value = `${guest.n} ${guest.a}`;
+    }
 
     // Hide loading screen
     window.addEventListener('load', () => {
