@@ -1087,6 +1087,11 @@ p {
     border-radius: 8px;
 }
 
+.city-name {
+    font-weight: 700;
+    font-size: 1.12em;
+}
+
 /* Media Queries */
 @media (max-width: 768px) {
     :root {
